@@ -10,27 +10,44 @@ const getgalleries = asyncHandler(async (req, res) => {
   return res.status(200).json(new ApiResponse(200, galleries, "Galleries fetched successfully"));
 });
 
-// Upload an image
 const uploadImage = asyncHandler(async (req, res) => {
-  console.log(req.body);
-  const { title,photo} = req.body;
-  if (!photo) {
+  const { title, photo, photos } = req.body;
+
+  // Ensure that either photo or photos array is provided
+  if (!photo && (!photos || photos.length === 0)) {
     throw new ApiError(400, "No image file uploaded");
   }
 
-   // Assuming you're using multer and storing the path
+  let newGalleries = [];
 
-  const newGallery = await Gallery.create({
-    photo: photo,
-    title,
-  });
-
-  if (!newGallery) {
-    throw new ApiError(400, "Photo not uploaded");
+  // If multiple photos are provided
+  if (photos && Array.isArray(photos)) {
+    newGalleries = await Promise.all(
+      photos.map(async (photoUrl) => {
+        return await Gallery.create({
+          photo: photoUrl,
+          title,
+        });
+      })
+    );
   }
 
-  return res.status(200).json(new ApiResponse(200, newGallery, "Photo uploaded successfully"));
+  // If a single photo is provided
+  if (photo) {
+    const newGallery = await Gallery.create({
+      photo: photo,
+      title,
+    });
+    newGalleries.push(newGallery);
+  }
+
+  if (newGalleries.length === 0) {
+    throw new ApiError(400, "Photo(s) not uploaded");
+  }
+
+  return res.status(200).json(new ApiResponse(200, newGalleries, "Photo(s) uploaded successfully"));
 });
+
 
 // Delete a gallery photo
 const deleteGallery = asyncHandler(async (req, res) => {
