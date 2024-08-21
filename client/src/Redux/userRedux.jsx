@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import axiosInstance from "../Helpers/axios.jsx"; // Updated import path
 
 const initialState = {
-    isLoggedIn: localStorage.getItem("isLoggedIn") === "true",
+    isLoggedIn: localStorage.getItem("isLoggedIn") === "false",
     data: localStorage.getItem('data') ? JSON.parse(localStorage.getItem('data')) : {},
     isLoading: false,
     error: null,
