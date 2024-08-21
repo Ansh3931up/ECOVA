@@ -234,38 +234,49 @@ const HomeLayout = () => {
             Our Gallery
           </h2>
           {galleryLoading ? (
-          <p className="text-center text-gray-500">Loading...</p>
-        ) : galleryError ? (
-          <p className="text-center text-red-500">Error: {galleryError}</p>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {latestGalleries?.slice()?.reverse()?.map((gallery, i) => (
-              <motion.div
-                key={gallery._id}
-                className={`${
-                  isDark ? 'bg-gray-800' : 'bg-white'
-                } p-4 rounded-lg shadow-lg overflow-hidden`}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                whileHover={{ scale: 1.05, rotate: 2 }}
-              >
-                <img
-                  src={gallery.photo} // Assuming photoUrl is the property for the image URL
-                  alt={`Eco Project ${i + 1}`}
-                  className="w-full h-48 object-cover rounded-md"
-                />
-                <p
-                  className={`mt-2 text-center ${
-                    isDark ? 'text-blue-300' : 'text-green-700'
-                  }`}
-                >
-                  {gallery.title || `Eco Project ${i + 1}`}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        )}
+  <div className="flex justify-center items-center h-full">
+    <ThreeCircles
+      visible={true}
+      height="100"
+      width="100"
+      color="#4fa94d"
+      ariaLabel="three-circles-loading"
+      wrapperStyle={{}}
+      wrapperClass=""
+    />
+  </div>
+) : galleryError ? (
+  <p className="text-center text-red-500">Error: {galleryError}</p>
+) : (
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {latestGalleries?.slice()?.reverse()?.map((gallery, i) => (
+      <motion.div
+        key={gallery._id}
+        className={`${
+          isDark ? 'bg-gray-800' : 'bg-white'
+        } p-4 rounded-lg shadow-lg overflow-hidden`}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, delay: i * 0.1 }}
+        whileHover={{ scale: 1.05, rotate: 2 }}
+      >
+        <img
+          src={gallery.photo} // Assuming photoUrl is the property for the image URL
+          alt={`Eco Project ${i + 1}`}
+          className="w-full h-48 object-cover rounded-md"
+        />
+        <p
+          className={`mt-2 text-center ${
+            isDark ? 'text-blue-300' : 'text-green-700'
+          }`}
+        >
+          {gallery.title || `Eco Project ${i + 1}`}
+        </p>
+      </motion.div>
+    ))}
+  </div>
+)}
+
           
         </section>
 
@@ -279,50 +290,53 @@ const HomeLayout = () => {
             Latest Updates
           </h2>
           {updatesLoading ? (
-          <ThreeCircles
-          visible={true}
-          height="100"
-          width="100"
-          color="#4fa94d"
-          ariaLabel="three-circles-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
+  <div className="flex justify-center items-center h-full">
+    <ThreeCircles
+      visible={true}
+      height="100"
+      width="100"
+      color="#4fa94d"
+      ariaLabel="three-circles-loading"
+      wrapperStyle={{}}
+      wrapperClass=""
+    />
+  </div>
+) : updatesError ? (
+  <p className="text-center text-red-500">Error: {updatesError}</p>
+) : (
+  <div className="space-y-6">
+    {latestUpdates.map((update, i) => (
+      <motion.div
+        key={update._id}
+        className={`${
+          isDark ? 'bg-gray-800' : 'bg-white'
+        } p-6 rounded-lg shadow-lg`}
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5, delay: i * 0.2 }}
+        whileHover={{ scale: 1.02 }}
+      >
+        <div className="flex items-center mb-4">
+          <Newspaper
+            size={24}
+            className={isDark ? 'text-blue-400' : 'text-green-500'}
           />
-        ) : updatesError ? (
-          <p className="text-center text-red-500">Error: {updatesError}</p>
-        ) : (
-          <div className="space-y-6">
-            {latestUpdates.map((update, i) => (
-              <motion.div
-                key={update._id}
-                className={`${
-                  isDark ? 'bg-gray-800' : 'bg-white'
-                } p-6 rounded-lg shadow-lg`}
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.2 }}
-                whileHover={{ scale: 1.02 }}
-              >
-                <div className="flex items-center mb-4">
-                  <Newspaper
-                    size={24}
-                    className={isDark ? 'text-blue-400' : 'text-green-500'}
-                  />
-                  <h3
-                    className={`text-xl font-semibold ml-2 ${
-                      isDark ? 'text-blue-300' : 'text-green-700'
-                    }`}
-                  >
-                    {update.title}
-                  </h3>
-                </div>
-                <p className={isDark ? 'text-gray-400' : 'text-gray-600'}>
-                  {update.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        )}
+          <h3
+            className={`text-xl font-semibold ml-2 ${
+              isDark ? 'text-blue-300' : 'text-green-700'
+            }`}
+          >
+            {update.title}
+          </h3>
+        </div>
+        <p className={isDark ? 'text-gray-400' : 'text-gray-600'}>
+          {update.description}
+        </p>
+      </motion.div>
+    ))}
+  </div>
+)}
+
         </section>
 
         {/* Quote Section */}
