@@ -1,26 +1,78 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import GalleryCard from '../components/GalleryCard';
-import { useTheme } from '../context/ThemeContext';
-import ThemeToggle from '../Helpers/ThemeToggle';
-import { fetchGalleries, uploadPhoto, deletePhoto } from '../Redux/galleryRedux';
-import { toast } from 'react-hot-toast';
-import { CameraIcon } from 'lucide-react';
+import {
+  CameraIcon,
+  ChevronLeft,
+  ChevronRight,
+  TrashIcon,
+  ZoomIn,
+  ZoomOut,
+} from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
+import { toast } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { useTheme } from "../context/ThemeContext";
+import ThemeToggle from "../Helpers/ThemeToggle";
+import {
+  deletePhoto,
+  fetchGalleries,
+  uploadPhoto,
+} from "../Redux/galleryRedux";
 
+// Custom Components
+const Dialog = ({ isOpen, onClose, children }) =>
+  isOpen ? (
+    <div
+      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg relative"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {children}
+      </div>
+    </div>
+  ) : null;
+
+const ScrollArea = ({ children }) => (
+  <div className="overflow-y-auto h-[80vh]">{children}</div>
+);
+
+const Button = ({ onClick, variant = "default", children, ...props }) => {
+  const baseStyle = "py-2 px-4 rounded-md transition";
+  const variants = {
+    default: "bg-green-500 text-white hover:bg-green-600",
+    outline: "border border-gray-300 text-gray-700 hover:bg-gray-100",
+    icon: "p-2 bg-gray-200 hover:bg-gray-300 rounded-full",
+  };
+
+  return (
+    <button
+      onClick={onClick}
+      className={`${baseStyle} ${variants[variant]}`}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};
+
+// Main Component
 const GalleryPage = () => {
   const { isDark } = useTheme();
   const dispatch = useDispatch();
-  const { galleries, loading } = useSelector((state) => state.gallery);
+  const { galleries } = useSelector((state) => state.gallery);
   const { isLoggedIn } = useSelector((state) => state.auth);
 
   const [visibleItems, setVisibleItems] = useState(6);
   const [userInput, setUserInput] = useState({
     title: "",
-    photo: null,
-    previewImage: "",
+    photos: [],
+    previewImages: [],
   });
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [zoom, setZoom] = useState(1);
 
   const fileInputRef = useRef(null);
 
@@ -28,56 +80,48 @@ const GalleryPage = () => {
     dispatch(fetchGalleries());
   }, [dispatch]);
 
-  const loadMoreItems = () => {
-    setVisibleItems((prevVisibleItems) => prevVisibleItems + 3);
-  };
-
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setUserInput({
-        ...userInput,
-        photo: file,
-      });
-
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setUserInput((prevInput) => ({
-          ...prevInput,
-          previewImage: reader.result,
-        }));
-      };
-      reader.readAsDataURL(file);
-    }
+    const files = Array.from(e.target.files);
+    const newPreviewImages = files.map((file) =>
+      URL.createObjectURL(file)
+    );
+    setUserInput((prev) => ({
+      ...prev,
+      photos: [...prev.photos, ...files],
+      previewImages: [
+        ...prev.previewImages,
+        ...newPreviewImages,
+      ],
+    }));
   };
 
-  const saveImage = async () => {
-    if (!userInput.photo) {
-      toast.error('Please select an image');
+  const saveImages = async () => {
+    if (!userInput.photos.length) {
+      toast.error("Please select at least one image");
       return null;
     }
 
-    const data = new FormData();
-    data.append('file', userInput.photo);
-    data.append('upload_preset', 'photogallery');
-    data.append('cloud_name', 'dxueqphl3');
-
     try {
-      const res = await fetch('https://api.cloudinary.com/v1_1/dxueqphl3/image/upload', {
-        method: 'POST',
-        body: data,
-      });
+      const uploadedUrls = await Promise.all(
+        userInput.photos.map(async (photo) => {
+          const data = new FormData();
+          data.append("file", photo);
+          data.append("upload_preset", "photogallery");
+          data.append("cloud_name", "dxueqphl3");
 
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.error.message || 'Error uploading image');
-      }
-
-      const cloudData = await res.json();
-      toast.success('Image uploaded successfully');
-      return cloudData.secure_url;
+          const res = await fetch(
+            "https://api.cloudinary.com/v1_1/dxueqphl3/image/upload",
+            { method: "POST", body: data }
+          );
+          if (!res.ok) throw new Error("Error uploading image");
+          const cloudData = await res.json();
+          return cloudData.secure_url;
+        })
+      );
+      toast.success("Images uploaded successfully");
+      return uploadedUrls;
     } catch (error) {
-      toast.error(`Error uploading image: ${error.message}`);
+      toast.error(`Error uploading images: ${error.message}`);
       return null;
     }
   };
@@ -86,162 +130,269 @@ const GalleryPage = () => {
     e.preventDefault();
     setIsUploading(true);
 
-    if (!userInput.title || !userInput.photo) {
-      toast.error('Title and image are required');
+    if (!userInput.title || !userInput.photos.length) {
+      toast.error("Title and images are required");
       setIsUploading(false);
       return;
     }
 
-    const imageUrl = await saveImage();
-
-    if (!imageUrl) {
+    const imageUrls = await saveImages();
+    if (!imageUrls) {
       setIsUploading(false);
       return;
     }
 
-    dispatch(uploadPhoto({ title: userInput.title, photo: imageUrl }))
+    dispatch(
+      uploadPhoto({ title: userInput.title, photos: imageUrls })
+    )
       .unwrap()
       .then(() => {
-        toast.success('Photo uploaded successfully!');
+        toast.success("Photos uploaded successfully!");
         setUserInput({
           title: "",
-          photo: null,
-          previewImage: "",
+          photos: [],
+          previewImages: [],
         });
         setIsUploadModalOpen(false);
       })
-      .catch((error) => toast.error('Failed to upload photo'))
+      .catch(() => toast.error("Failed to upload photos"))
       .finally(() => setIsUploading(false));
   };
 
   const handleDelete = (id) => {
     dispatch(deletePhoto(id))
       .unwrap()
-      .then(() => toast.success('Photo deleted successfully!'))
-      .catch((error) => toast.error('Failed to delete photo'));
+      .then(() => toast.success("Photo deleted successfully!"))
+      .catch(() => toast.error("Failed to delete photo"));
   };
 
-  const openFileSelector = () => {
-    fileInputRef.current.click();
+  const handlePrevious = () => {
+    setSelectedIndex((prev) =>
+      prev > 0 ? prev - 1 : galleries.length - 1
+    );
+    setZoom(1);
+  };
+
+  const handleNext = () => {
+    setSelectedIndex((prev) =>
+      prev < galleries.length - 1 ? prev + 1 : 0
+    );
+    setZoom(1);
+  };
+
+  const handleZoomIn = () =>
+    setZoom((prev) => Math.min(prev + 0.1, 3));
+  const handleZoomOut = () =>
+    setZoom((prev) => Math.max(prev - 0.1, 0.5));
+
+  const handleLoadMore = () => {
+    setVisibleItems((prev) => prev + 6); // Load 6 more items
   };
 
   return (
-    <div className={`min-h-screen pt-32 font-poppins transition-colors duration-500 ${isDark ? 'bg-gray-900' : 'bg-blue-50'} overflow-hidden`}>
-      <ThemeToggle className="fixed top-4 right-4 z-50 p-2 rounded-full bg-gray-200 dark:bg-gray-800 transition-colors duration-300" />
-      
+    <div
+      className={`min-h-screen pt-32 font-poppins transition-colors duration-500 ${
+        isDark ? "bg-gray-900" : "bg-blue-50"
+      } overflow-hidden`}
+    >
+      <ThemeToggle />
       <main className="relative z-10 mx-auto px-6 py-12">
         <section className="mb-20">
-          <h2 className={`text-6xl font-bold mb-8 text-center ${isDark ? 'text-blue-300 shadow-md' : 'text-green-700 shadow-md'}`}>
+          <h2
+            className={`text-6xl font-bold mb-8 text-center ${
+              isDark ? "text-blue-300" : "text-green-700"
+            }`}
+          >
             Our Gallery
           </h2>
-
           {isLoggedIn && (
             <div className="mb-8 flex justify-center">
-              <button
+              <Button
                 onClick={() => setIsUploadModalOpen(true)}
-                className={`${
-                  isDark ? 'bg-blue-500 hover:bg-blue-600' : 'bg-green-500 hover:bg-green-600'
-                } text-white font-bold py-2 px-6 rounded-full transition duration-300`}
+                className={`bg-green-500 text-white font-bold py-2 px-6 rounded-full transition`}
               >
-                Upload Image
-              </button>
+                Upload Images
+              </Button>
             </div>
           )}
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {galleries?.slice().reverse().slice(0, visibleItems).map((item) => (
-              <GalleryCard
-                key={item._id}
-                title={item.title}
-                imageSrc={item.photo}
-                isDark={isDark}
-                onDelete={() => handleDelete(item._id)}
-                isLoggedIn={isLoggedIn}
-              />
-            ))}
-          </div>
+          <ScrollArea>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+              {galleries?.slice(0, visibleItems).map((item, index) => (
+                <div key={item._id} className="relative">
+                  <button
+                    className="rounded-lg overflow-hidden hover:opacity-80 transition-opacity"
+                    onClick={() => setSelectedIndex(index)}
+                  >
+                    <img
+                      src={item.photo}
+                      alt={item.title}
+                      className="max-h-48 object-cover"
+                    />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </ScrollArea>
 
-          {visibleItems < galleries?.length && (
+          {visibleItems < galleries.length && (
             <div className="flex justify-center mt-8">
-              <button
-                onClick={loadMoreItems}
-                className={`${
-                  isDark ? 'bg-blue-500 hover:bg-blue-600' : 'bg-green-500 hover:bg-green-600'
-                } text-white font-bold py-3 px-6 rounded-full transition duration-300`}
+              <Button
+                onClick={handleLoadMore}
+                className="bg-green-500 text-white font-bold py-2 px-6 rounded-full transition"
               >
                 Load More
-              </button>
+              </Button>
             </div>
           )}
         </section>
       </main>
 
-      {/* Upload Image Modal */}
-      {isUploadModalOpen && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
-          <div className={`w-full max-w-md ${isDark ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow-lg p-6`}>
-            <h2 className={`text-xl font-bold text-center ${isDark ? 'text-green-300' : 'text-green-700'}`}>
-              Upload New Image
-            </h2>
-            <form onSubmit={handleUpload} className="mt-4 space-y-4">
-              <div>
-                <label htmlFor="title" className="block text-sm font-medium text-gray-700">
-                  Title
-                </label>
-                <input
-                  type="text"
-                  id="title"
-                  value={userInput.title}
-                  onChange={(e) => setUserInput({ ...userInput, title: e.target.value })}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="photo" className="block text-sm font-medium text-gray-700">
-                  Photo
-                </label>
-                <div
-                  className={`mt-1 flex items-center justify-center border-2 border-dashed rounded-md h-40 ${isDark ? 'border-gray-600 bg-gray-700' : 'border-gray-300 bg-gray-100'}`}
-                  onClick={openFileSelector}
-                >
-                  {userInput.previewImage ? (
-                    <img src={userInput.previewImage} alt="Preview" className="h-full object-cover rounded-md" />
-                  ) : (
-                    <CameraIcon className="h-12 w-12 text-gray-400" />
-                  )}
-                </div>
-                <input
-                  type="file"
-                  id="photo"
-                  onChange={handleImageChange}
-                  ref={fileInputRef}
-                  className="hidden"
-                  accept="image/*"
-                />
-              </div>
-              <div className="flex justify-between">
-                <button
-                  type="submit"
-                  className={`${
-                    isUploading ? 'cursor-wait' : ''
-                  } ${isDark ? 'bg-blue-500 hover:bg-blue-600' : 'bg-green-500 hover:bg-green-600'} text-white font-bold py-2 px-6 rounded-full transition duration-300`}
-                  disabled={isUploading || !userInput.photo || !userInput.title}
-                >
-                  {isUploading ? 'Uploading...' : 'Upload'}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setIsUploadModalOpen(false)}
-                  className="text-gray-600 hover:text-gray-800 focus:outline-none"
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
+      {/* Image Modal */}
+      <Dialog
+        isOpen={selectedIndex !== null}
+        onClose={() => setSelectedIndex(null)}
+      >
+        <div className="relative flex-grow flex justify-center items-center p-4">
+          {/* Large, Fixed Arrow Buttons */}
+          <Button
+            variant="icon"
+            className="fixed left-4 top-1/2 transform -translate-y-1/2 text-2xl font-bold z-50"
+            onClick={handlePrevious}
+          >
+            <ChevronLeft className="h-16 w-16 text-white drop-shadow-lg" />
+          </Button>
+          <Button
+            variant="icon"
+            className="fixed right-4 top-1/2 transform -translate-y-1/2 text-2xl font-bold z-50"
+            onClick={handleNext}
+          >
+            <ChevronRight className="h-16 w-16 text-white drop-shadow-lg" />
+          </Button>
+
+          {/* Image Display */}
+          <img
+            src={galleries[selectedIndex]?.photo}
+            alt={galleries[selectedIndex]?.title}
+            className="max-w-[80vw] max-h-[80vh] object-contain transition-transform drop-shadow-lg"
+            style={{ transform: `scale(${zoom})` }}
+          />
+
+          {/* Zoom Buttons */}
+          <div className="absolute top-4 right-4 flex gap-2 z-50">
+            <Button variant="icon" onClick={handleZoomIn}>
+              <ZoomIn className="h-8 w-8 text-white drop-shadow-lg" />
+            </Button>
+            <Button variant="icon" onClick={handleZoomOut}>
+              <ZoomOut className="h-8 w-8 text-white drop-shadow-lg" />
+            </Button>
           </div>
         </div>
-      )}
+
+        {/* Title and Delete Button */}
+        <div className="text-center mt-4">
+          <h2 className="text-2xl font-semibold text-white drop-shadow-lg">
+            {galleries[selectedIndex]?.title}
+          </h2>
+          {isLoggedIn && (
+            <Button
+              onClick={() => handleDelete(galleries[selectedIndex]._id)}
+              className="text-red-500 hover:text-red-700"
+            >
+              <TrashIcon className="h-8 w-8" />
+            </Button>
+          )}
+        </div>
+      </Dialog>
+
+      {/* Upload Image Modal */}
+      <Dialog
+        isOpen={isUploadModalOpen}
+        onClose={() => setIsUploadModalOpen(false)}
+      >
+        <h2 className="text-xl font-bold text-center text-green-700">
+          Upload New Images
+        </h2>
+        <form onSubmit={handleUpload} className="mt-4 space-y-4">
+          <div>
+            <label
+              htmlFor="title"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Title
+            </label>
+            <input
+              type="text"
+              id="title"
+              value={userInput.title}
+              onChange={(e) =>
+                setUserInput({
+                  ...userInput,
+                  title: e.target.value,
+                })
+              }
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+              required
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="photos"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Photos
+            </label>
+            <div
+              className="mt-1 flex items-center justify-center border-2 border-dashed rounded-md h-40 bg-gray-100"
+              onClick={() => fileInputRef.current.click()}
+            >
+              {userInput.previewImages.length ? (
+                <div className="grid grid-cols-3 gap-2">
+                  {userInput.previewImages.map((image, idx) => (
+                    <img
+                      key={idx}
+                      src={image}
+                      alt={`Preview ${idx}`}
+                      className="w-16 h-16 object-cover rounded-md"
+                    />
+                  ))}
+                </div>
+              ) : (
+                <CameraIcon className="h-12 w-12 text-gray-400" />
+              )}
+            </div>
+            <input
+              type="file"
+              id="photos"
+              onChange={handleImageChange}
+              ref={fileInputRef}
+              className="hidden"
+              accept="image/*"
+              multiple
+            />
+          </div>
+          <div className="flex justify-between">
+            <Button
+              type="submit"
+              disabled={
+                isUploading ||
+                !userInput.photos.length ||
+                !userInput.title
+              }
+              className="bg-green-500 text-white font-bold py-2 px-6 rounded-full"
+            >
+              {isUploading ? "Uploading..." : "Upload"}
+            </Button>
+            <Button
+              type="button"
+              onClick={() => setIsUploadModalOpen(false)}
+              className="text-gray-600 hover:text-gray-800"
+            >
+              Cancel
+            </Button>
+          </div>
+        </form>
+      </Dialog>
     </div>
   );
 };
