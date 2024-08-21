@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 // import ApiError from "../utilities/ApiError.js";
 import bodyParser from "body-parser";
+import path from "path";
 import ApiResponse from "../utilities/ApiResponse.js";
 import morgan from "morgan";
 import userRouter from "../routes/user.routes.js";
