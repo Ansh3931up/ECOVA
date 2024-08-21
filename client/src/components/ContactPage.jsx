@@ -47,7 +47,7 @@ const ContactPage = () => {
       const response = await toast.promise(
         emailjs.send(
           'service_v3u1e2q',  // Replace with your EmailJS service ID
-          'template_u6y354j', // Replace with your EmailJS template ID
+          'template_xb2nvao', // Replace with your EmailJS template ID
           templateParams,
           'qiCQ-IjLuUzV_rJM1' // Replace with your EmailJS user ID
         ),
