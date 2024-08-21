@@ -40,29 +40,28 @@ export default function Footer() {
         <div>
           <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
           <ul className="space-y-2">
-            <li><a href="#" className="hover:text-purple-400 dark:hover:text-purple-600 transition-colors">Home</a></li>
-            <li><a href="#" className="hover:text-purple-400 dark:hover:text-purple-600 transition-colors">Features</a></li>
-            <li><a href="#" className="hover:text-purple-400 dark:hover:text-purple-600 transition-colors">Templates</a></li>
-            <li><a href="#" className="hover:text-purple-400 dark:hover:text-purple-600 transition-colors">Pricing</a></li>
+            <li><a href="/" className="hover:text-purple-400 dark:hover:text-purple-600 transition-colors">Home</a></li>
+            <li><a href="/about" className="hover:text-purple-400 dark:hover:text-purple-600 transition-colors">About</a></li>
+            <li><a href="/contact" className="hover:text-purple-400 dark:hover:text-purple-600 transition-colors">Contact</a></li>
+            <li><a href="/news" className="hover:text-purple-400 dark:hover:text-purple-600 transition-colors">News</a></li>
+            <li><a href="/gallery" className="hover:text-purple-400 dark:hover:text-purple-600 transition-colors">Gallery</a></li>
           </ul>
         </div>
-        <div>
-          <h4 className="text-lg font-semibold mb-4">Support</h4>
-          <ul className="space-y-2">
-            <li><a href="#" className="hover:text-purple-400 dark:hover:text-purple-600 transition-colors">FAQ</a></li>
-            <li><a href="#" className="hover:text-purple-400 dark:hover:text-purple-600 transition-colors">Documentation</a></li>
-            <li><a href="#" className="hover:text-purple-400 dark:hover:text-purple-600 transition-colors">Contact Us</a></li>
-          </ul>
-        </div>
+        
         <div>
           <h4 className="text-lg font-semibold mb-4">Stay Updated</h4>
           
           <div className="flex space-x-4 mt-4">
-            {[Facebook, Twitter, Instagram, Linkedin].map((Icon, index) => (
-              <a href="#" key={index} className="hover:text-purple-400 dark:hover:text-purple-600 transition-colors">
-                <Icon className="h-6 w-6" />
-              </a>
-            ))}
+            <a href="https://www.facebook.com/ECOVA-IIITU" target="_blank" rel="noopener noreferrer" className="hover:text-purple-400 dark:hover:text-purple-600 transition-colors">
+              <Facebook className="h-6 w-6" />
+            </a>
+           
+            <a href="https://www.instagram.com/ecova_iiitu" target="_blank" rel="noopener noreferrer" className="hover:text-purple-400 dark:hover:text-purple-600 transition-colors">
+              <Instagram className="h-6 w-6" />
+            </a>
+            <a href="https://www.linkedin.com/company/ecova-iiitu/" target="_blank" rel="noopener noreferrer" className="hover:text-purple-400 dark:hover:text-purple-600 transition-colors">
+              <Linkedin className="h-6 w-6" />
+            </a>
           </div>
         </div>
       </div>
