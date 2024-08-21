@@ -4,12 +4,17 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 // import ApiError from "../utilities/ApiError.js";
 import bodyParser from "body-parser";
-import path from "path";
 import ApiResponse from "../utilities/ApiResponse.js";
+import path from "path";
 import morgan from "morgan";
 import userRouter from "../routes/user.routes.js";
 import blogRouter from "../routes/blog.routes.js";
 import photoRouter from "../routes/gallery.routes.js";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const app=express();   
 const allowedOrigin = 'https://ecova.vercel.app';
 app.set("trust proxy", true);
@@ -21,7 +26,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-  
+
 app.use(morgan('dev'));
 
 dotenv.config({
@@ -30,14 +35,11 @@ dotenv.config({
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(express.static("public"))
-
+app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(bodyParser.json({ limit: '50mb' })); // Adjust the limit as needed
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true })); // Adjust the limit as needed
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/build/index.html'));
-});
+
 app.use("/api/v1/updates",blogRouter);
 app.use("/api/v1/auth",userRouter);
 // app.all("*",function(req,res){
@@ -46,7 +48,9 @@ app.use("/api/v1/auth",userRouter);
 
 app.use("/api/v1/gallery",photoRouter)
 
-
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/build/index.html'));
+});
 
 
 
