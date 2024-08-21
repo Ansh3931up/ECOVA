@@ -29,16 +29,14 @@ dotenv.config({
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(express.static("public"))
-app.use("/ping",function (res,req){
-    console.log("Pong");
 
-    throw new ApiResponse(200,"Hello pong");
-    
-})
 app.use(bodyParser.json({ limit: '50mb' })); // Adjust the limit as needed
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true })); // Adjust the limit as needed
-
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/build/index.html'));
+});
 app.use("/api/v1/updates",blogRouter);
 app.use("/api/v1/auth",userRouter);
 // app.all("*",function(req,res){
