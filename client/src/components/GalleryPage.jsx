@@ -63,7 +63,7 @@ const GalleryPage = () => {
   const { galleries } = useSelector((state) => state.gallery);
   const { isLoggedIn } = useSelector((state) => state.auth);
 
-  const [visibleItems, setVisibleItems] = useState(6);
+  const [visibleItems, setVisibleItems] = useState(15);
   const [userInput, setUserInput] = useState({
     title: "",
     photos: [],
