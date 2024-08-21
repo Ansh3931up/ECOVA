@@ -21,8 +21,10 @@ const NewsCard = ({ title, date, description, isDark, onDelete }) => {
       </div>
       <p className="text-sm text-gray-500">{date}</p>
       <p className="mt-4">
-        {isExpanded ? description : `${description?.substring(0, MAX_LENGTH)}...`}
-        {description?.length > MAX_LENGTH && (
+        {isExpanded || description.length <= MAX_LENGTH 
+          ? description 
+          : `${description.substring(0, MAX_LENGTH)}...`}
+        {description.length > MAX_LENGTH && (
           <button 
             onClick={toggleReadMore} 
             className={`ml-2 text-sm font-medium ${isDark ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-500'}`}>
