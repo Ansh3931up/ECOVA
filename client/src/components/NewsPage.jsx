@@ -1,16 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import NewsCard from '../components/NewsCard';
 import { useTheme } from '../context/ThemeContext';
 import ThemeToggle from '../Helpers/ThemeToggle';
 import { getUpdates, createUpdate, deleteUpdate } from '../Redux/updateRedux';
 import { toast } from 'react-hot-toast';
-// import Loader from '../components/Loader'; // Make sure to create this component or import it correctly
+
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   return date.toLocaleDateString(undefined, options);
 };
+
 const NewsPage = () => {
   const { isDark } = useTheme();
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const NewsPage = () => {
       toast.success('Update uploaded successfully!');
       setFormData({ title: '', description: '' });
       setShowUploadForm(false);
+      dispatch(getUpdates());  // Fetch updates again to refresh the list
     } catch (error) {
       toast.error('Failed to upload update');
     } finally {
@@ -52,7 +54,10 @@ const NewsPage = () => {
   const handleDelete = (id) => {
     dispatch(deleteUpdate(id))
       .unwrap()
-      .then(() => toast.success('Update deleted successfully!'))
+      .then(() => {
+        toast.success('Update deleted successfully!');
+        dispatch(getUpdates());  // Fetch updates again to refresh the list
+      })
       .catch(() => toast.error('Failed to delete update'));
   };
 
@@ -137,18 +142,14 @@ const NewsPage = () => {
           )}
 
           <div className="space-y-6">
-            {updates.slice(0, visibleItems).reverse().map((item) => (
-              // console.log(item.createdAt.),
-            
-             
-              
+            {updates.slice().reverse().slice(0, visibleItems).map((item) => (
               <NewsCard
                 key={item._id}
                 title={item.title}
-                date={formatDate(item.createdAt)} 
+                date={formatDate(item.createdAt)}
                 description={item.description}
                 isDark={isDark}
-                onDelete={isLoggedIn ? () => handleDelete(item._id) : null}
+                onDelete={isLoggedIn ? () => handleDelete(item._id) : null}  // Pass onDelete to NewsCard
               />
             ))}
           </div>

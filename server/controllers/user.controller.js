@@ -100,6 +100,7 @@ const logout = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, {}, "User logged out"));
 });
 
+
 // Forgot password: Generate and send OTP
 const forgotPassword = asyncHandler(async (req, res) => {
     const { email } = req.body;
@@ -197,6 +198,37 @@ const resetPassword = asyncHandler(async (req, res) => {
     // Send success response
     res.status(200).json(new ApiResponse(200, {}, 'Password reset successfully'));
 });
+const refreshToken = asyncHandler(async (req, res) => {
+    const { refreshToken } = req.cookies;
+
+    if (!refreshToken) {
+        throw new ApiError(401, "No refresh token provided");
+    }
+
+    let decoded;
+    try {
+        decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+    } catch (err) {
+        throw new ApiError(403, "Invalid or expired refresh token");
+    }
+
+    const user = await User.findById(decoded.id);
+    if (!user || user.refreshToken !== refreshToken) {
+        throw new ApiError(403, "User not found or token mismatch");
+    }
+
+    const newAccessToken = user.generateAccessToken();
+    const newRefreshToken = user.generateRefreshToken();
+
+    user.refreshToken = newRefreshToken;
+    await user.save();
+
+    return res
+        .cookie("accessToken", newAccessToken, cookieOptions)
+        .cookie("refreshToken", newRefreshToken, cookieOptions)
+        .status(200)
+        .json(new ApiResponse(200, {}, 'Tokens refreshed successfully'));
+});
 
 
-export { register, login, logout, forgotPassword, verifyOTP, resetPassword };
+export { register, login, logout, forgotPassword, verifyOTP, resetPassword,refreshToken };
