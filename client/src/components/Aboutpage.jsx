@@ -11,6 +11,7 @@ const AboutPage = () => {
   const { isDark, toggleTheme } = useTheme();
 
   const teamMembers = [
+    { name: 'Dr. Ina Thakur', title: 'Faculty Advisor', image: '' },
     { name: 'Manish Yadav', title: 'President', image: '' },
     { name: 'Piyush Jangir', title: 'Vice President', image: '' },
     { name: 'Bhanu Singh', title: 'Treasurer', image:'' },
