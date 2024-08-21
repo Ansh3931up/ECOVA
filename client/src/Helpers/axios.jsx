@@ -1,9 +1,13 @@
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 
+
 import { refreshToken } from '../Redux/userRedux';
 import {store} from '../app/store';
 const BASEURL="http://localhost:3014/api/v1";
+
+const BASEURL="https://ecova.onrender.com/api/v1";
+
 
 const axiosInstance=axios.create();
 

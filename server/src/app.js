@@ -10,7 +10,7 @@ import userRouter from "../routes/user.routes.js";
 import blogRouter from "../routes/blog.routes.js";
 import photoRouter from "../routes/gallery.routes.js";
 const app=express();   
-const allowedOrigin = 'http://localhost:5173';
+const allowedOrigin = 'https://ecova.vercel.app';
 app.set("trust proxy", true);
 
 const corsOptions = {
