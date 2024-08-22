@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Leaf, Droplets, Sun, Moon,UserIcon } from 'lucide-react';
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import Ansh from "../assets/ecova/ansh.png";
 import Bhanu from "../assets/ecova/bhanu.png";
 import Devesh from "../assets/ecova/devesh.png";
@@ -230,12 +231,16 @@ const AboutPage = () => {
 
         {/* How to Join Section */}
         <section className="mb-16">
-          <h2 className={`text-3xl font-semibold mb-6 ${isDark ? 'text-sky-400' : 'text-[#15803D]'}`}>How to Join ECOVA</h2>
-          <p className={`text-lg ${isDark ? 'text-gray-300' : 'text-black'}`}>Joining ECOVA is simple and rewarding. Here's how you can become a part of our community:</p>
-          <ol className={`list-decimal list-inside ${isDark ? 'text-gray-300' : 'text-black'} ml-4 mt-4`}>
-            {/* Steps to join */}
-          </ol>
-        </section>
+  <h2 className={`text-3xl font-semibold mb-6 ${isDark ? 'text-sky-400' : 'text-[#15803D]'}`}>How to Join ECOVA</h2>
+  <p className={`text-lg ${isDark ? 'text-gray-300' : 'text-black'}`}>Joining ECOVA is simple and rewarding. Here's how you can become a part of our community:</p>
+  <ol className={`list-decimal list-inside ${isDark ? 'text-gray-300' : 'text-black'} ml-4 mt-4`}>
+    <li>Go to the <Link to="/" className="underline hover:text-blue-600">Home</Link> page.</li>
+    <li>Click on the <strong>Join Our Mission</strong> button.</li>
+    <li>Fill out the Google Form with your details.</li>
+    <li>Wait for our response. We will get back to you shortly with the next steps.</li>
+  </ol>
+</section>
+
 
         {/* Social Media Section */}
         <section className="text-center">
