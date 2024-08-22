@@ -242,8 +242,8 @@ const AboutPage = () => {
           <h2 className={`text-3xl font-semibold mb-6 ${isDark ? 'text-sky-400' : 'text-[#15803D]'}`}>Follow Us on Social Media</h2>
           <p className={`text-lg mb-4 ${isDark ? 'text-gray-300' : 'text-black'}`}>Stay connected with us through our social media channels:</p>
           <p className={`text-lg ${isDark ? 'text-blue-200' : 'text-black'}`}>
-            Instagram: <a href="https://www.instagram.com/ecova_iiitu" className="underline">ecova_iiitu</a><br />
-            Facebook: <a href="https://www.facebook.com/ECOVA-IIITU" className="underline">ECOVA IIITU</a>
+             <a href="https://www.instagram.com/ecova_iiitu" className="underline">ECOVA_INSTAGRAM</a><br />
+             <a href="https://www.facebook.com/ECOVA-IIITU" className="underline">ECOVA_FACEBOOK</a>
           </p>
         </section>
       </main>
