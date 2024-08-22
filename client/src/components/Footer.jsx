@@ -61,7 +61,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div className="text-center mt-4 text-sm text-gray-300 dark:text-gray-600">
+      <div className="text-center mt-4 text-sm text-gray-600 dark:text-gray-300">
         &copy; 2024 Ecova. All rights reserved.
       </div>
     </footer>
