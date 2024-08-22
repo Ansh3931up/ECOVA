@@ -36,7 +36,7 @@ const events = [
   },
   {
     title: 'NGO Visits: ',
-    details: `ECOVA promote's environmental awareness and support their projects, fostering eco-friendly practices.`,
+    details: `ECOVA partners with the Gurusidak Foundation to promote environmental awareness and support their projects, fostering eco-friendly practices.`,
   },
   {
     title: 'NGO Visits: Chandigarh/Hoshiarpur/Anandpur Sahib',
@@ -105,7 +105,7 @@ const AboutPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
-            About ECOVA
+            About Ecova
           </motion.h1>
           <motion.p
             className={`text-lg ${isDark ? 'text-sky-400' : 'text-[#15803D]'}`}
@@ -192,63 +192,58 @@ const AboutPage = () => {
           </div>
         </section>
 
-        {/* Our Events Section */}
-        <section className="mb-16">
-          <h2 className={`text-3xl font-semibold mb-6 ${isDark ? 'text-sky-400' : 'text-[#15803D]'}`}>Our Events</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {events.map((event, index) => (
-              <motion.div
-                key={index}
-                className={`p-6 rounded-lg shadow-lg cursor-pointer ${
-                  isDark ? 'bg-gray-900 text-white' : 'bg-white text-black'
-                }`}
-                whileHover={{ scale: 1.05 }}
-                onClick={() => setSelectedEvent(selectedEvent === index ? null : index)}
-              >
-                <motion.h3
-                  className="text-xl font-bold mb-2"
-                  animate={{ color: isDark ? '#38bdf8' : '#15803D' }}
-                >
-                  {event.title}
-                </motion.h3>
-                {selectedEvent === index && (
-                  <motion.p
-                    className="mt-4"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                  >
-                    {event.details}
-                  </motion.p>
-                )}
-              </motion.div>
-            ))}
-          </div>
-        </section>
+       {/* Our Events Section */}
+<section className="mb-16">
+  <h2 className={`text-3xl font-semibold mb-6 ${isDark ? 'text-sky-400' : 'text-[#15803D]'}`}>Our Events</h2>
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {events.map((event, index) => (
+      <motion.div
+        key={index}
+        className={`p-6 rounded-lg shadow-lg cursor-pointer transition-all duration-300 overflow-hidden ${
+          isDark ? 'bg-gray-900 text-white' : 'bg-white text-black'
+        } ${selectedEvent === index ? 'max-h-96' : 'max-h-20'}`} // Adjust height based on selection
+        whileHover={{ scale: selectedEvent === index ? 1.05 : 1.02 }} // Slight scale on hover
+        onClick={() => setSelectedEvent(selectedEvent === index ? null : index)}
+      >
+        <h3
+          className="text-xl font-bold mb-2"
+          style={{ color: isDark ? '#38bdf8' : '#15803D' }}
+        >
+          {event.title}
+        </h3>
+        {selectedEvent === index && (
+          <motion.p
+            className="mt-4"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            {event.details}
+          </motion.p>
+        )}
+      </motion.div>
+    ))}
+  </div>
+</section>
+
+
+
 
         {/* How to Join Section */}
         <section className="mb-16">
-  <h2 className={`text-3xl font-semibold mb-6 ${isDark ? 'text-sky-400' : 'text-[#15803D]'}`}>
-    How to Join ECOVA
-  </h2>
-  <p className={`text-lg ${isDark ? 'text-gray-300' : 'text-black'}`}>
-    Joining ECOVA is simple and rewarding. Here's how you can become a part of our community:
-  </p>
-  <ol className={`list-decimal list-inside ${isDark ? 'text-gray-300' : 'text-black'} ml-4 mt-4`}>
-    <li>Visit Our Homepage: Start by navigating to our website's homepage to explore what our club is all about.</li>
-    <li>Click on "Join Our Mission": Once you're ready to be a part of something amazing, simply click on the "Join Our Mission" button prominently displayed on the homepage.</li>
-    <li>Fill Out the Google Form: You’ll be directed to a Google Form. Provide the required details so we can get to know you better and understand how you’d like to contribute.</li>
-    <li>Wait for Our Response: After submitting the form, our team will review your application. Please allow a few days for us to get back to you with the next steps.</li>
-  </ol>
-</section>
-
+          <h2 className={`text-3xl font-semibold mb-6 ${isDark ? 'text-sky-400' : 'text-[#15803D]'}`}>How to Join ECOVA</h2>
+          <p className={`text-lg ${isDark ? 'text-gray-300' : 'text-black'}`}>Joining ECOVA is simple and rewarding. Here's how you can become a part of our community:</p>
+          <ol className={`list-decimal list-inside ${isDark ? 'text-gray-300' : 'text-black'} ml-4 mt-4`}>
+            {/* Steps to join */}
+          </ol>
+        </section>
 
         {/* Social Media Section */}
         <section className="text-center">
           <h2 className={`text-3xl font-semibold mb-6 ${isDark ? 'text-sky-400' : 'text-[#15803D]'}`}>Follow Us on Social Media</h2>
           <p className={`text-lg mb-4 ${isDark ? 'text-gray-300' : 'text-black'}`}>Stay connected with us through our social media channels:</p>
           <p className={`text-lg ${isDark ? 'text-blue-200' : 'text-black'}`}>
-             <a href="https://www.instagram.com/ecova_iiitu" className="underline">ECOVA_INSTAGRAM</a><br />
-             <a href="https://www.facebook.com/ECOVA-IIITU" className="underline">ECOVA_FACEBOOK</a>
+            Instagram: <a href="https://www.instagram.com/ecova_iiitu" className="underline">ecova_iiitu</a><br />
+            Facebook: <a href="https://www.facebook.com/ECOVA-IIITU" className="underline">ECOVA IIITU</a>
           </p>
         </section>
       </main>
