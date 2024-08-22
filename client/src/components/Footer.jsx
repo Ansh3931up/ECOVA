@@ -29,7 +29,7 @@ export default function Footer() {
     <footer className={`relative z-10 ${isDark ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'} py-12 px-4`}>
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
         <div className="space-y-4">
-          <h3 className="text-2xl font-bold">Ecova</h3>
+          <h3 className="text-2xl font-bold">ECOVA</h3>
           <p className="text-sm text-gray-600 dark:text-gray-300">
            Let us protect our environment. Do the world a favour and show it the change you can make.
           </p>
