@@ -49,7 +49,7 @@ const ContactPage = () => {
           'service_mjrijrb',  // Replace with your EmailJS service ID
           'template_7ggyari', // Replace with your EmailJS template ID
           templateParams,
-          'qiCQ-IjLuUzV_rJM1' // Replace with your EmailJS user ID
+          '6E0huR2TujRHmWaQi' // Replace with your EmailJS user ID
         ),
         {
           loading: "Submitting your message...",
