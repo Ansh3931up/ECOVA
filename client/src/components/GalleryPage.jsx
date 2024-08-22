@@ -56,14 +56,50 @@ const Button = ({ onClick, variant = "default", children, ...props }) => {
   );
 };
 
+const GalleryLoader = ({ isDark, itemCount = 12 }) => {
+  const bgColor = isDark ? 'bg-gray-900' : 'bg-white';
+  const textColor = isDark ? 'text-white' : 'text-gray-900';
+  const cardBg = isDark ? 'bg-gray-800' : 'bg-white';
+  const skeletonColor = isDark ? 'bg-gray-700' : 'bg-gray-200';
+
+  return (
+    <div className={`w-full max-w-7xl mx-auto p-4 ${bgColor} ${textColor}`}>
+      <div className="mb-8">
+        <div className={`h-8 w-64 mb-4 ${skeletonColor} animate-pulse`} />
+        <div className={`h-4 w-full max-w-2xl ${skeletonColor} animate-pulse`} />
+      </div>
+      
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {[...Array(itemCount)].map((_, index) => (
+          <div key={index} className={`overflow-hidden rounded-lg ${cardBg}`}>
+            <div className="p-0">
+              <div className="relative">
+                <div className={`w-full h-48 ${skeletonColor} animate-pulse`} />
+              </div>
+              <div className="p-4 space-y-2">
+                <div className={`h-4 w-3/4 ${skeletonColor} animate-pulse`} />
+                <div className={`h-3 w-1/2 ${skeletonColor} animate-pulse`} />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <div className="flex justify-center mt-8">
+        <div className={`w-10 h-10 border-4 ${isDark ? 'border-blue-500' : 'border-primary'} border-t-transparent rounded-full animate-spin`} />
+      </div>
+    </div>
+  );
+};
+
 // Main Component
 const GalleryPage = () => {
   const { isDark } = useTheme();
   const dispatch = useDispatch();
-  const { galleries } = useSelector((state) => state.gallery);
+  const { galleries, loading } = useSelector((state) => state.gallery);
   const { isLoggedIn } = useSelector((state) => state.auth);
 
-  const [visibleItems, setVisibleItems] = useState(15);
+  const [visibleItems, setVisibleItems] = useState(6);
   const [userInput, setUserInput] = useState({
     title: "",
     photos: [],
@@ -216,26 +252,30 @@ const GalleryPage = () => {
             </div>
           )}
 
-          <ScrollArea>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
-              {galleries?.slice(0, visibleItems).map((item, index) => (
-                <div key={item._id} className="relative">
-                  <button
-                    className="rounded-lg overflow-hidden hover:opacity-80 transition-opacity"
-                    onClick={() => setSelectedIndex(index)}
-                  >
-                    <img
-                      src={item.photo}
-                      alt={item.title}
-                      className="max-h-48 object-cover"
-                    />
-                  </button>
-                </div>
-              ))}
-            </div>
-          </ScrollArea>
+          {loading ? (
+            <GalleryLoader isDark={isDark} itemCount={12} />
+          ) : (
+            <ScrollArea>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+                {galleries?.slice(0, visibleItems).map((item, index) => (
+                  <div key={item._id} className="relative">
+                    <button
+                      className="rounded-lg overflow-hidden hover:opacity-80 transition-opacity"
+                      onClick={() => setSelectedIndex(index)}
+                    >
+                      <img
+                        src={item.photo}
+                        alt={item.title}
+                        className="max-h-48 object-cover"
+                      />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </ScrollArea>
+          )}
 
-          {visibleItems < galleries.length && (
+          {visibleItems < galleries.length && !loading && (
             <div className="flex justify-center mt-8">
               <Button
                 onClick={handleLoadMore}
