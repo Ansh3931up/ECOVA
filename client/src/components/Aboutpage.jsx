@@ -15,6 +15,7 @@ import rituraj from "../assets/ecova/rituraj.png";
 import siddarth from "../assets/ecova/siddharth.png";
 import tanishq from "../assets/ecova/tanishq.png";
 import titiksha from "../assets/ecova/titiksha.png";
+import manish from "../assets/ecova/manish(2).png"
 import EcovaLogo from '../assets/ecova-logo.jpg'; // Replace with the actual path to your logo
 import { useTheme } from '../context/ThemeContext';
 import anurag from "../assets/ecova/anurag.png";
@@ -25,7 +26,7 @@ const AboutPage = () => {
 
   const teamMembers = [
     { name: 'Dr. Ina Thakur', title: 'Faculty Advisor', image: '' },
-    { name: 'Manish Yadav', title: 'President', image: '' },
+    { name: 'Manish Yadav', title: 'President', image: manish },
     { name: 'Piyush Jangir', title: 'Vice President', image: piyush },
     { name: 'Bhanu Singh', title: 'Treasurer', image: Bhanu },
     { name: 'Devesh Soni', title: 'Social Media', image: Devesh },
