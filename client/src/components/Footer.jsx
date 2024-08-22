@@ -30,8 +30,8 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
         <div className="space-y-4">
           <h3 className="text-2xl font-bold">Ecova</h3>
-          <p className="text-sm text-gray-300 dark:text-gray-600">
-            Create stunning portfolios with ease. Showcase your work to the world.
+          <p className="text-sm text-gray-600 dark:text-gray-300">
+           Let us protect our environment. Do the world a favour and show it the change you can make.
           </p>
         </div>
 
