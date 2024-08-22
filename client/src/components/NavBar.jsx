@@ -1,7 +1,5 @@
-'use client';
-
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
-import { HomeIcon, LayoutDashboard, LogOutIcon,MailIcon, Newspaper, UserIcon, UserPlus2Icon } from 'lucide-react';
+import { HomeIcon, LayoutDashboard, LogOutIcon, MailIcon, Newspaper, UserIcon, UserPlus2Icon } from 'lucide-react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
@@ -13,7 +11,7 @@ const IconButton = ({ children, ariaLabel, theme, onClick }) => {
   return (
     <button
       aria-label={ariaLabel}
-      onClick={onClick} // Ensure onClick is applied here
+      onClick={onClick}
       className={`${
         theme === 'dark'
           ? 'text-gray-300 hover:bg-gray-700/50 hover:text-white focus:bg-gray-700/50 focus:text-white'
@@ -24,7 +22,6 @@ const IconButton = ({ children, ariaLabel, theme, onClick }) => {
     </button>
   );
 };
-
 
 export default function NavBar() {
   const { scrollY } = useScroll();
@@ -49,8 +46,8 @@ export default function NavBar() {
   return (
     <div className="fixed top-4 left-0 right-0 z-50 flex justify-center">
       <motion.nav
-        className={`w-4/5 rounded-full shadow-lg overflow-hidden transition-colors duration-300 ${
-          isDark ? 'bg-gradient-to-r from-gray-900 via-blue-400 to-purple-500' : 'bg-gradient-to-r from-sky-200 to-blue-400'
+        className={`w-4/5 rounded-full shadow-2xl overflow-hidden transition-colors duration-300 ${
+          isDark ? 'bg-gradient-to-r from-gray-900 via-blue-500 to-purple-600' : 'bg-gradient-to-r from-sky-200 to-blue-400'
         }`}
         variants={{
           visible: { y: 0, opacity: 1 },
@@ -65,57 +62,64 @@ export default function NavBar() {
             <div className="shooting-star"></div>
             <div className="shooting-star"></div>
           </div>
-          <ul className="flex items-center justify-center p-2 space-x-4 relative z-10">
+          <ul className="flex items-center justify-around p-4 space-x-4 relative z-10">
             <li>
               <IconButton ariaLabel="Home" theme={isDark ? 'dark' : 'light'}>
-                <Link to="/">
-                  <HomeIcon className="h-5 w-5" />
+                <Link to="/" className="flex items-center space-x-2">
+                  <HomeIcon className="h-6 w-6" />
+                  <span className="hidden lg:inline-block text-lg font-semibold">Home</span>
                 </Link>
               </IconButton>
             </li>
             <li>
               <IconButton ariaLabel="About" theme={isDark ? 'dark' : 'light'}>
-                <Link to="/about">
-                  <UserIcon className="h-5 w-5" />
+                <Link to="/about" className="flex items-center space-x-2">
+                  <UserIcon className="h-6 w-6" />
+                  <span className="hidden lg:inline-block text-lg font-semibold">About</span>
                 </Link>
               </IconButton>
             </li>
             <li>
               <IconButton ariaLabel="Contact" theme={isDark ? 'dark' : 'light'}>
-                <Link to="/contact">
-                  <MailIcon className="h-5 w-5" />
+                <Link to="/contact" className="flex items-center space-x-2">
+                  <MailIcon className="h-6 w-6" />
+                  <span className="hidden lg:inline-block text-lg font-semibold">Contact</span>
                 </Link>
               </IconButton>
             </li>
             <li>
               <IconButton ariaLabel="News" theme={isDark ? 'dark' : 'light'}>
-                <Link to="/news">
-                  <Newspaper className="h-5 w-5" />
+                <Link to="/news" className="flex items-center space-x-2">
+                  <Newspaper className="h-6 w-6" />
+                  <span className="hidden lg:inline-block text-lg font-semibold">News</span>
                 </Link>
               </IconButton>
             </li>
             <li>
               <IconButton ariaLabel="Gallery" theme={isDark ? 'dark' : 'light'}>
-                <Link to="/gallery">
-                  <LayoutDashboard className="h-5 w-5" />
+                <Link to="/gallery" className="flex items-center space-x-2">
+                  <LayoutDashboard className="h-6 w-6" />
+                  <span className="hidden lg:inline-block text-lg font-semibold">Gallery</span>
                 </Link>
               </IconButton>
             </li>
-            {isLoggedIn ? (
-              <li>
+            <li>
+              {isLoggedIn ? (
                 <IconButton ariaLabel="Logout" theme={isDark ? 'dark' : 'light'} onClick={handleLogout}>
-                  <LogOutIcon className="h-5 w-5" />
-                </IconButton>
-              </li>
-            ) : (
-              <li>
-                <IconButton ariaLabel="Sign In" theme={isDark ? 'dark' : 'light'}>
-                  <Link to="/signin">
-                    <UserPlus2Icon className="h-5 w-5" />
+                  <Link to="#" className="flex items-center space-x-2">
+                    <LogOutIcon className="h-6 w-6" />
+                    <span className="hidden lg:inline-block text-lg font-semibold">Logout</span>
                   </Link>
                 </IconButton>
-              </li>
-            )}
+              ) : (
+                <IconButton ariaLabel="Sign In" theme={isDark ? 'dark' : 'light'}>
+                  <Link to="/signin" className="flex items-center space-x-2">
+                    <UserPlus2Icon className="h-6 w-6" />
+                    <span className="hidden lg:inline-block text-lg font-semibold">Sign In</span>
+                  </Link>
+                </IconButton>
+              )}
+            </li>
           </ul>
         </div>
         <style>{`
@@ -129,26 +133,26 @@ export default function NavBar() {
           }
           .shooting-star {
             position: absolute;
-            width: 100px;
-            height: 1px;
+            width: 120px;
+            height: 2px;
             background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%);
-            opacity: 0.5;
-            animation: shoot 5s linear infinite;
+            opacity: 0.6;
+            animation: shoot 4s linear infinite;
           }
           .shooting-star:nth-child(1) {
-            top: 10%;
+            top: 20%;
             left: -10%;
             animation-delay: 0s;
           }
           .shooting-star:nth-child(2) {
             top: 50%;
             left: 20%;
-            animation-delay: 2s;
+            animation-delay: 1.5s;
           }
           .shooting-star:nth-child(3) {
             top: 80%;
             left: -20%;
-            animation-delay: 4s;
+            animation-delay: 3s;
           }
         `}</style>
       </motion.nav>
