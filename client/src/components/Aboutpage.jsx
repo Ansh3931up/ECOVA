@@ -35,7 +35,7 @@ const AboutPage = () => {
     { name: 'Ansh', title: 'PR Team Head', image: Ansh, contributor: true },  // Added contributor flag
     { name: 'Siddharth', title: 'Designing Team', image: siddarth },
     { name: 'Kaustubh Agarwal', title: 'Content Team', image: kaustubh },
-    { name: 'Tanishq Sharma', title: 'Joint secretary', image: tanishq },
+    { name: 'Tanishq Singh', title: 'Joint secretary', image: tanishq },
     { name: 'Kartikey', title: 'Executive Member', image: kartikey },
     { name: 'Rituraj', title: 'Executive Member', image: rituraj },
     { name: 'Titiksha', title: 'Executive Member', image: titiksha },
