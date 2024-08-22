@@ -163,7 +163,7 @@ const HomeLayout = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1 }}
             >
-              Ecova
+              ECOVA
             </motion.h1>
             <motion.p
               className={`text-3xl mb-8 ${
