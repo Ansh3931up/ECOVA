@@ -151,10 +151,10 @@ const HomeLayout = () => {
       {/* Main Content */}
       <main className="relative z-10  mx-auto px-6 py-12">
         {/* Hero Section */}
-        <section className="flex flex-col-reverse lg:flex-row items-center justify-between m-20 mb-20">
+        <section className="flex flex-col-reverse  lg:flex-row items-center justify-between m-20 mb-20">
           <div className="text-center lg:text-left lg:w-1/2">
             <motion.h1
-              className={`text-9xl font-bold mb-4 ${
+              className={`text-9xl  font-bold mb-4 ${
                 isDark
                   ? 'bg-gradient-to-r from-blue-300 via-purple-500 to-blue-300'
                   : 'bg-gradient-to-r from-green-700 via-teal-500 to-green-700'
@@ -166,7 +166,7 @@ const HomeLayout = () => {
               ECOVA
             </motion.h1>
             <motion.p
-              className={`text-3xl mb-8 ${
+              className={`text-3xl  mb-8 m-4 ${
                 isDark ? 'text-blue-200 shadow-md' : 'text-green-600 shadow-md'
               }`}
               initial={{ opacity: 0, y: 50 }}
@@ -176,7 +176,7 @@ const HomeLayout = () => {
               One touch of nature makes the whole world kin.
             </motion.p>
             <motion.p
-              className={`text-lg mb-8 ${
+              className={`text-lg mb-8 m-4 ${
                 isDark ? 'text-blue-200 shadow-md' : 'text-green-600 shadow-md'
               }`}
               initial={{ opacity: 0, y: 50 }}
