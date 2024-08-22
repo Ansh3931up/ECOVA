@@ -227,12 +227,20 @@ const AboutPage = () => {
 
         {/* How to Join Section */}
         <section className="mb-16">
-          <h2 className={`text-3xl font-semibold mb-6 ${isDark ? 'text-sky-400' : 'text-[#15803D]'}`}>How to Join ECOVA</h2>
-          <p className={`text-lg ${isDark ? 'text-gray-300' : 'text-black'}`}>Joining ECOVA is simple and rewarding. Here's how you can become a part of our community:</p>
-          <ol className={`list-decimal list-inside ${isDark ? 'text-gray-300' : 'text-black'} ml-4 mt-4`}>
-            {/* Steps to join */}
-          </ol>
-        </section>
+  <h2 className={`text-3xl font-semibold mb-6 ${isDark ? 'text-sky-400' : 'text-[#15803D]'}`}>
+    How to Join ECOVA
+  </h2>
+  <p className={`text-lg ${isDark ? 'text-gray-300' : 'text-black'}`}>
+    Joining ECOVA is simple and rewarding. Here's how you can become a part of our community:
+  </p>
+  <ol className={`list-decimal list-inside ${isDark ? 'text-gray-300' : 'text-black'} ml-4 mt-4`}>
+    <li>Visit Our Homepage: Start by navigating to our website's homepage to explore what our club is all about.</li>
+    <li>Click on "Join Our Mission": Once you're ready to be a part of something amazing, simply click on the "Join Our Mission" button prominently displayed on the homepage.</li>
+    <li>Fill Out the Google Form: You’ll be directed to a Google Form. Provide the required details so we can get to know you better and understand how you’d like to contribute.</li>
+    <li>Wait for Our Response: After submitting the form, our team will review your application. Please allow a few days for us to get back to you with the next steps.</li>
+  </ol>
+</section>
+
 
         {/* Social Media Section */}
         <section className="text-center">
