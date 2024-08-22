@@ -188,16 +188,18 @@ const HomeLayout = () => {
               world.
             </motion.p>
             <motion.button
-              className={`${
-                isDark
-                  ? 'bg-blue-500 hover:bg-blue-600 shadow-md'
-                  : 'bg-green-500 hover:bg-green-600 shadow-md'
-              } text-white font-bold py-3 px-6 rounded-full transition duration-300`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Join Our Mission
-            </motion.button>
+  className={`${
+    isDark
+      ? 'bg-blue-500 hover:bg-blue-600 shadow-md'
+      : 'bg-green-500 hover:bg-green-600 shadow-md'
+  } text-white font-bold py-3 px-6 rounded-full transition duration-300`}
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  onClick={() => window.open('https://forms.gle/FGjqxeMd41fX6dHq6', '_blank')}
+>
+  Join Our Mission
+</motion.button>
+
           </div>
           <Player
             autoplay
