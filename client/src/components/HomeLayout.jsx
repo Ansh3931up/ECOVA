@@ -1,9 +1,9 @@
 // src/components/HomeLayout.js
 import { Player } from '@lottiefiles/react-lottie-player';
 import { motion } from 'framer-motion';
-import {  Leaf, Moon,Newspaper, Sun, Trash2, Wind } from 'lucide-react';
+import { Leaf, Moon, Newspaper, Sun, Trash2, Wind } from 'lucide-react';
 import React, { useEffect } from 'react';
-import { ThreeCircles} from 'react-loader-spinner'
+import { ThreeCircles } from 'react-loader-spinner';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useTheme } from '../context/ThemeContext';
@@ -38,6 +38,7 @@ const HomeLayout = () => {
 
   const latestGalleries = galleries.slice(0, 6);
   const latestUpdates = updates.slice(0, 3); 
+
   return (
     <div
       className={`min-h-screen pt-32 font-poppins transition-colors duration-500 ${
@@ -149,12 +150,18 @@ const HomeLayout = () => {
       </motion.button>
 
       {/* Main Content */}
-      <main className="relative z-10  mx-auto px-6 py-12">
+      <main className="relative z-10 mx-auto px-6 py-12">
         {/* Hero Section */}
-        <section className="flex flex-col-reverse  lg:flex-row items-center justify-between m-20 mb-20">
-          <div className="text-center lg:text-left lg:w-1/2">
+        <section
+          className={`flex flex-col-reverse lg:flex-row items-center justify-between m-20 mb-20`}
+        >
+          <div className={`text-center lg:text-left lg:w-1/2  ${
+            isDark
+              ? 'bg-[#182B60]  lg:bg-transparent'
+              : 'bg-[#CBE1FE] lg:bg-transparent'
+          } p-20`}>
             <motion.h1
-              className={`text-9xl  font-bold mb-4 ${
+              className={`text-9xl font-bold mb-4 ${
                 isDark
                   ? 'bg-gradient-to-r from-blue-300 via-purple-500 to-blue-300'
                   : 'bg-gradient-to-r from-green-700 via-teal-500 to-green-700'
@@ -166,7 +173,7 @@ const HomeLayout = () => {
               ECOVA
             </motion.h1>
             <motion.p
-              className={`text-3xl  mb-8 m-4 ${
+              className={`text-3xl mb-8 m-4 ${
                 isDark ? 'text-blue-200 shadow-md' : 'text-green-600 shadow-md'
               }`}
               initial={{ opacity: 0, y: 50 }}
@@ -188,18 +195,17 @@ const HomeLayout = () => {
               world.
             </motion.p>
             <motion.button
-  className={`${
-    isDark
-      ? 'bg-blue-500 hover:bg-blue-600 shadow-md'
-      : 'bg-green-500 hover:bg-green-600 shadow-md'
-  } text-white font-bold py-3 px-6 rounded-full transition duration-300`}
-  whileHover={{ scale: 1.05 }}
-  whileTap={{ scale: 0.95 }}
-  onClick={() => window.open('https://forms.gle/FGjqxeMd41fX6dHq6', '_blank')}
->
-  Join Our Mission
-</motion.button>
-
+              className={`${
+                isDark
+                  ? 'bg-blue-500 hover:bg-blue-600 shadow-md'
+                  : 'bg-green-500 hover:bg-green-600 shadow-md'
+              } text-white font-bold py-3 px-6 rounded-full transition duration-300`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => window.open('https://forms.gle/FGjqxeMd41fX6dHq6', '_blank')}
+            >
+              Join Our Mission
+            </motion.button>
           </div>
           <Player
             autoplay
@@ -211,7 +217,13 @@ const HomeLayout = () => {
         </section>
 
         {/* Environmental Activities Section */}
-        <section className="mb-20">
+        <section
+          className={`mb-20 p-3  ${
+            isDark
+              ? 'bg-[#182B60] lg:bg-transparent'
+              : 'bg-[#e5f0ff] lg:bg-transparent'
+          }`}
+        >
           <h2
             className={`text-3xl font-bold mb-8 text-center ${
               isDark ? 'text-blue-300 shadow-md' : 'text-green-700 shadow-md'
@@ -236,50 +248,48 @@ const HomeLayout = () => {
             Our Gallery
           </h2>
           {galleryLoading ? (
-  <div className="flex justify-center items-center h-full">
-    <ThreeCircles
-      visible={true}
-      height="100"
-      width="100"
-      color="#4fa94d"
-      ariaLabel="three-circles-loading"
-      wrapperStyle={{}}
-      wrapperClass=""
-    />
-  </div>
-) : galleryError ? (
-  <p className="text-center text-red-500">Error: {galleryError}</p>
-) : (
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-    {latestGalleries?.slice()?.reverse()?.map((gallery, i) => (
-      <motion.div
-        key={gallery._id}
-        className={`${
-          isDark ? 'bg-gray-800' : 'bg-white'
-        } p-4 rounded-lg shadow-lg overflow-hidden`}
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, delay: i * 0.1 }}
-        whileHover={{ scale: 1.05, rotate: 2 }}
-      >
-        <img
-          src={gallery.photo} // Assuming photoUrl is the property for the image URL
-          alt={`Eco Project ${i + 1}`}
-          className="w-full h-48 object-cover rounded-md"
-        />
-        <p
-          className={`mt-2 text-center ${
-            isDark ? 'text-blue-300' : 'text-green-700'
-          }`}
-        >
-          {gallery.title || `Eco Project ${i + 1}`}
-        </p>
-      </motion.div>
-    ))}
-  </div>
-)}
-
-          
+            <div className="flex justify-center items-center h-full">
+              <ThreeCircles
+                visible={true}
+                height="100"
+                width="100"
+                color="#4fa94d"
+                ariaLabel="three-circles-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            </div>
+          ) : galleryError ? (
+            <p className="text-center text-red-500">Error: {galleryError}</p>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {latestGalleries?.slice()?.reverse()?.map((gallery, i) => (
+                <motion.div
+                  key={gallery._id}
+                  className={`${
+                    isDark ? 'bg-gray-800' : 'bg-white'
+                  } p-4 rounded-lg shadow-lg overflow-hidden`}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  whileHover={{ scale: 1.05, rotate: 2 }}
+                >
+                  <img
+                    src={gallery.photo} // Assuming photoUrl is the property for the image URL
+                    alt={`Eco Project ${i + 1}`}
+                    className="w-full h-48 object-cover rounded-md"
+                  />
+                  <p
+                    className={`mt-2 text-center ${
+                      isDark ? 'text-blue-300' : 'text-green-700'
+                    }`}
+                  >
+                    {gallery.title || `Eco Project ${i + 1}`}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </section>
 
         {/* Latest Updates Section */}
@@ -292,53 +302,52 @@ const HomeLayout = () => {
             Latest Updates
           </h2>
           {updatesLoading ? (
-  <div className="flex justify-center items-center h-full">
-    <ThreeCircles
-      visible={true}
-      height="100"
-      width="100"
-      color="#4fa94d"
-      ariaLabel="three-circles-loading"
-      wrapperStyle={{}}
-      wrapperClass=""
-    />
-  </div>
-) : updatesError ? (
-  <p className="text-center text-red-500">Error: {updatesError}</p>
-) : (
-  <div className="space-y-6">
-    {latestUpdates.map((update, i) => (
-      <motion.div
-        key={update._id}
-        className={`${
-          isDark ? 'bg-gray-800' : 'bg-white'
-        } p-6 rounded-lg shadow-lg`}
-        initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5, delay: i * 0.2 }}
-        whileHover={{ scale: 1.02 }}
-      >
-        <div className="flex items-center mb-4">
-          <Newspaper
-            size={24}
-            className={isDark ? 'text-blue-400' : 'text-green-500'}
-          />
-          <h3
-            className={`text-xl font-semibold ml-2 ${
-              isDark ? 'text-blue-300' : 'text-green-700'
-            }`}
-          >
-            {update.title}
-          </h3>
-        </div>
-        <p className={isDark ? 'text-gray-400' : 'text-gray-600'}>
-          {update.description}
-        </p>
-      </motion.div>
-    ))}
-  </div>
-)}
-
+            <div className="flex justify-center items-center h-full">
+              <ThreeCircles
+                visible={true}
+                height="100"
+                width="100"
+                color="#4fa94d"
+                ariaLabel="three-circles-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            </div>
+          ) : updatesError ? (
+            <p className="text-center text-red-500">Error: {updatesError}</p>
+          ) : (
+            <div className="space-y-6">
+              {latestUpdates.map((update, i) => (
+                <motion.div
+                  key={update._id}
+                  className={`${
+                    isDark ? 'bg-gray-800' : 'bg-white'
+                  } p-6 rounded-lg shadow-lg`}
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: i * 0.2 }}
+                  whileHover={{ scale: 1.02 }}
+                >
+                  <div className="flex items-center mb-4">
+                    <Newspaper
+                      size={24}
+                      className={isDark ? 'text-blue-400' : 'text-green-500'}
+                    />
+                    <h3
+                      className={`text-xl font-semibold ml-2 ${
+                        isDark ? 'text-blue-300' : 'text-green-700'
+                      }`}
+                    >
+                      {update.title}
+                    </h3>
+                  </div>
+                  <p className={isDark ? 'text-gray-400' : 'text-gray-600'}>
+                    {update.description}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </section>
 
         {/* Quote Section */}
