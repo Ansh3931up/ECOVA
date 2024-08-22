@@ -11,7 +11,6 @@ const formatDate = (dateString) => {
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   return date.toLocaleDateString(undefined, options);
 };
-
 const NewsPage = () => {
   const { isDark } = useTheme();
   const dispatch = useDispatch();
@@ -141,20 +140,25 @@ const NewsPage = () => {
             </div>
           )}
 
-          <div className="space-y-6">
-            {updates.slice().reverse().slice(0, visibleItems).map((item) => (
-              <NewsCard
-                key={item._id}
-                title={item.title}
-                date={formatDate(item.createdAt)}
-                description={item.description}
-                isDark={isDark}
-                onDelete={isLoggedIn ? () => handleDelete(item._id) : null}  // Pass onDelete to NewsCard
-              />
-            ))}
-          </div>
+          {/* Show custom loader while data is being fetched */}
+          {isLoading ? (
+            <CustomLoader isDark={isDark} />
+          ) : (
+            <div className="space-y-6">
+              {updates.slice().reverse().slice(0, visibleItems).map((item) => (
+                <NewsCard
+                  key={item._id}
+                  title={item.title}
+                  date={formatDate(item.createdAt)}
+                  description={item.description}
+                  isDark={isDark}
+                  onDelete={isLoggedIn ? () => handleDelete(item._id) : null}  // Pass onDelete to NewsCard
+                />
+              ))}
+            </div>
+          )}
 
-          {visibleItems < updates.length && (
+          {visibleItems < updates.length && !isLoading && (
             <div className="flex justify-center mt-8">
               <button
                 onClick={loadMoreItems}
@@ -173,3 +177,52 @@ const NewsPage = () => {
 };
 
 export default NewsPage;
+
+function CustomLoader({ isDark }) {
+  const bgColor = isDark ? 'bg-gray-900' : 'bg-white';
+  const textColor = isDark ? 'text-white' : 'text-gray-900';
+  const cardBg = isDark ? 'bg-gray-800' : 'bg-white';
+  const accentColor = isDark ? 'bg-blue-500' : 'bg-primary';
+  const skeletonColor = isDark ? 'bg-gray-700' : 'bg-gray-200';
+
+  return (
+    <div className={`w-full max-w-3xl mx-auto space-y-8 p-4 ${bgColor} ${textColor}`}>
+      <div className="flex items-center space-x-4">
+        <div className={`w-12 h-12 rounded-full ${accentColor} opacity-10 animate-pulse`} />
+        <div className="space-y-2">
+          <div className={`h-4 w-[200px] ${skeletonColor}`} />
+          <div className={`h-4 w-[100px] ${skeletonColor}`} />
+        </div>
+      </div>
+      
+      <div className={`${cardBg} rounded-lg shadow-md p-4`}>
+        <div>
+          <div className={`h-6 w-[300px] ${skeletonColor}`} />
+        </div>
+        <div className="space-y-4 pt-4">
+          <div className={`h-4 w-full ${skeletonColor}`} />
+          <div className={`h-4 w-full ${skeletonColor}`} />
+          <div className={`h-4 w-2/3 ${skeletonColor}`} />
+        </div>
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {[...Array(4)].map((_, index) => (
+          <div key={index} className={`${cardBg} rounded-lg shadow-md p-4`}>
+            <div>
+              <div className={`h-4 w-[150px] ${skeletonColor}`} />
+            </div>
+            <div className="pt-4">
+              <div className={`h-20 w-full ${skeletonColor}`} />
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <div className="flex justify-center">
+        <div className={`w-10 h-10 border-4 ${isDark ? 'border-blue-500' : 'border-primary'} border-t-transparent rounded-full animate-spin`} />
+      </div>
+    </div>
+  );
+}
+
