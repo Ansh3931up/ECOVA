@@ -15,7 +15,7 @@ import rituraj from "../assets/ecova/rituraj.png";
 import siddarth from "../assets/ecova/siddharth.png";
 import tanishq from "../assets/ecova/tanishq.png";
 import titiksha from "../assets/ecova/titiksha.png";
-import manish from "../assets/ecova/manish(2).png"
+import manish from "../assets/ecova/manish (2).png"
 import EcovaLogo from '../assets/ecova-logo.jpg'; // Replace with the actual path to your logo
 import { useTheme } from '../context/ThemeContext';
 import anurag from "../assets/ecova/anurag.png";
