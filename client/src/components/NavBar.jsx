@@ -27,7 +27,7 @@ export default function NavBar() {
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
   const { isDark } = useTheme();
-  const { isLoggedIn } = useSelector((state) => state.auth); // Get login state from Redux
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -40,13 +40,13 @@ export default function NavBar() {
   });
 
   const handleLogout = () => {
-    dispatch(logout()); // Dispatch logout action
+    dispatch(logout());
   };
 
   return (
-    <div className="fixed top-4 left-0 right-0 z-50 flex justify-center">
+    <div className="fixed mt-7 top-4 left-0 right-0 z-50 flex justify-center px-4 sm:px-0">
       <motion.nav
-        className={`w-4/5 rounded-full shadow-2xl overflow-hidden transition-colors duration-300 ${
+        className={`w-full max-w-4xl rounded-full shadow-2xl overflow-hidden transition-colors duration-300 ${
           isDark ? 'bg-gradient-to-r from-gray-900 via-blue-500 to-purple-600' : 'bg-gradient-to-r from-sky-200 to-blue-400'
         }`}
         variants={{
@@ -61,13 +61,15 @@ export default function NavBar() {
             <div className="shooting-star"></div>
             <div className="shooting-star"></div>
             <div className="shooting-star"></div>
+            <div className="shooting-star"></div>
+            <div className="shooting-star"></div>
           </div>
-          <ul className="flex items-center justify-around p-4 space-x-4 relative z-10">
+          <ul className="flex flex-wrap items-center justify-around p-0 space-x-0 sm:space-x-4 relative z-10">
             <li>
               <IconButton ariaLabel="Home" theme={isDark ? 'dark' : 'light'}>
                 <Link to="/" className="flex items-center space-x-2">
                   <HomeIcon className="h-6 w-6" />
-                  <span className="hidden lg:inline-block text-lg font-semibold">Home</span>
+                  <span className="hidden sm:inline-block text-sm sm:text-lg font-semibold">Home</span>
                 </Link>
               </IconButton>
             </li>
@@ -75,7 +77,7 @@ export default function NavBar() {
               <IconButton ariaLabel="About" theme={isDark ? 'dark' : 'light'}>
                 <Link to="/about" className="flex items-center space-x-2">
                   <UserIcon className="h-6 w-6" />
-                  <span className="hidden lg:inline-block text-lg font-semibold">About</span>
+                  <span className="hidden sm:inline-block text-sm sm:text-lg font-semibold">About</span>
                 </Link>
               </IconButton>
             </li>
@@ -83,7 +85,7 @@ export default function NavBar() {
               <IconButton ariaLabel="Contact" theme={isDark ? 'dark' : 'light'}>
                 <Link to="/contact" className="flex items-center space-x-2">
                   <MailIcon className="h-6 w-6" />
-                  <span className="hidden lg:inline-block text-lg font-semibold">Contact</span>
+                  <span className="hidden sm:inline-block text-sm sm:text-lg font-semibold">Contact</span>
                 </Link>
               </IconButton>
             </li>
@@ -91,7 +93,7 @@ export default function NavBar() {
               <IconButton ariaLabel="News" theme={isDark ? 'dark' : 'light'}>
                 <Link to="/news" className="flex items-center space-x-2">
                   <Newspaper className="h-6 w-6" />
-                  <span className="hidden lg:inline-block text-lg font-semibold">News</span>
+                  <span className="hidden sm:inline-block text-sm sm:text-lg font-semibold">News</span>
                 </Link>
               </IconButton>
             </li>
@@ -99,23 +101,21 @@ export default function NavBar() {
               <IconButton ariaLabel="Gallery" theme={isDark ? 'dark' : 'light'}>
                 <Link to="/gallery" className="flex items-center space-x-2">
                   <LayoutDashboard className="h-6 w-6" />
-                  <span className="hidden lg:inline-block text-lg font-semibold">Gallery</span>
+                  <span className="hidden sm:inline-block text-sm sm:text-lg font-semibold">Gallery</span>
                 </Link>
               </IconButton>
             </li>
             <li>
               {isLoggedIn ? (
                 <IconButton ariaLabel="Logout" theme={isDark ? 'dark' : 'light'} onClick={handleLogout}>
-                  <Link to="#" className="flex items-center space-x-2">
-                    <LogOutIcon className="h-6 w-6" />
-                    <span className="hidden lg:inline-block text-lg font-semibold">Logout</span>
-                  </Link>
+                  <LogOutIcon className="h-6 w-6" />
+                  <span className="hidden sm:inline-block text-sm sm:text-lg font-semibold">Logout</span>
                 </IconButton>
               ) : (
                 <IconButton ariaLabel="Sign In" theme={isDark ? 'dark' : 'light'}>
                   <Link to="/signin" className="flex items-center space-x-2">
                     <UserPlus2Icon className="h-6 w-6" />
-                    <span className="hidden lg:inline-block text-lg font-semibold">Sign In</span>
+                    <span className="hidden sm:inline-block text-sm sm:text-lg font-semibold">Sign In</span>
                   </Link>
                 </IconButton>
               )}
