@@ -153,11 +153,11 @@ const HomeLayout = () => {
       <main className="relative z-10 mx-auto px-4 py-8 lg:px-6 lg:py-12">
         {/* Hero Section */}
         <section
-          className={`flex flex-col-reverse lg:flex-row items-center justify-between lg:m-20 mb-20 bg-opacity-20 p-4 lg:p-20 ${
-            isDark ? 'bg-[#182B60] lg:bg-transparent' : 'bg-[#CBE1FE] lg:bg-transparent'
-          }`}
+          className={`flex flex-col-reverse lg:flex-row items-center justify-between lg:m-20 mb-20  p-4 lg:p-20`}
         >
-          <div className="text-center lg:text-left lg:w-1/2">
+          <div className={`text-center lg:text-left lg:w-1/2 bg-opacity-30  ${
+            isDark ? 'bg-[#182B60] lg:bg-transparent' : 'bg-[#CBE1FE] lg:bg-transparent'
+          }`}>
             <motion.h1
               className={`text-5xl lg:text-9xl font-bold mb-4 ${
                 isDark
