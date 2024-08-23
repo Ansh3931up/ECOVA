@@ -33,7 +33,7 @@ const HomeLayout = () => {
 
   useEffect(() => {
     dispatch(fetchGalleries());
-    dispatch(getUpdates()); // Fetch the latest updates
+    dispatch(getUpdates());
   }, [dispatch]);
 
   const latestGalleries = galleries.slice(0, 6);
@@ -150,18 +150,16 @@ const HomeLayout = () => {
       </motion.button>
 
       {/* Main Content */}
-      <main className="relative z-10 mx-auto px-6 py-12">
+      <main className="relative z-10 mx-auto px-4 py-8 lg:px-6 lg:py-12">
         {/* Hero Section */}
         <section
-          className={`flex flex-col-reverse lg:flex-row items-center justify-between m-20 mb-20`}
+          className={`flex flex-col-reverse lg:flex-row items-center justify-between lg:m-20 mb-20 bg-opacity-20 p-4 lg:p-20 ${
+            isDark ? 'bg-[#182B60] lg:bg-transparent' : 'bg-[#CBE1FE] lg:bg-transparent'
+          }`}
         >
-          <div className={`text-center lg:text-left lg:w-1/2  ${
-            isDark
-              ? 'bg-[#182B60]  lg:bg-transparent'
-              : 'bg-[#CBE1FE] lg:bg-transparent'
-          } p-20`}>
+          <div className="text-center lg:text-left lg:w-1/2">
             <motion.h1
-              className={`text-9xl font-bold mb-4 ${
+              className={`text-5xl lg:text-9xl font-bold mb-4 ${
                 isDark
                   ? 'bg-gradient-to-r from-blue-300 via-purple-500 to-blue-300'
                   : 'bg-gradient-to-r from-green-700 via-teal-500 to-green-700'
@@ -173,7 +171,7 @@ const HomeLayout = () => {
               ECOVA
             </motion.h1>
             <motion.p
-              className={`text-3xl mb-8 m-4 ${
+              className={`text-xl lg:text-3xl mb-4 lg:mb-8 ${
                 isDark ? 'text-blue-200 shadow-md' : 'text-green-600 shadow-md'
               }`}
               initial={{ opacity: 0, y: 50 }}
@@ -183,7 +181,7 @@ const HomeLayout = () => {
               One touch of nature makes the whole world kin.
             </motion.p>
             <motion.p
-              className={`text-lg mb-8 m-4 ${
+              className={`text-sm lg:text-lg mb-4 lg:mb-8 ${
                 isDark ? 'text-blue-200 shadow-md' : 'text-green-600 shadow-md'
               }`}
               initial={{ opacity: 0, y: 50 }}
@@ -199,7 +197,7 @@ const HomeLayout = () => {
                 isDark
                   ? 'bg-blue-500 hover:bg-blue-600 shadow-md'
                   : 'bg-green-500 hover:bg-green-600 shadow-md'
-              } text-white font-bold py-3 px-6 rounded-full transition duration-300`}
+              } text-white font-bold py-2 px-4 lg:py-3 lg:px-6 rounded-full transition duration-300`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => window.open('https://forms.gle/FGjqxeMd41fX6dHq6', '_blank')}
@@ -211,21 +209,19 @@ const HomeLayout = () => {
             autoplay
             loop
             src="https://lottie.host/ffab5b5a-d38b-4c73-83d3-64989ff54891/tAa2gEblEa.json"
-            style={{ height: '600px', width: '600px' }}
+            style={{ height: '400px', width: '400px' }}
             className="lg:w-1/2 mb-10 lg:mb-0"
           />
         </section>
 
         {/* Environmental Activities Section */}
         <section
-          className={`mb-20 p-3  ${
-            isDark
-              ? 'bg-[#182B60] lg:bg-transparent'
-              : 'bg-[#e5f0ff] lg:bg-transparent'
+          className={`mb-20 p-4 lg:p-8 bg-opacity-20 ${
+            isDark ? 'bg-[#182B60] lg:bg-transparent' : 'bg-[#CBE1FE] lg:bg-transparent'
           }`}
         >
           <h2
-            className={`text-3xl font-bold mb-8 text-center ${
+            className={`text-2xl lg:text-3xl font-bold mb-6 lg:mb-8 text-center ${
               isDark ? 'text-blue-300 shadow-md' : 'text-green-700 shadow-md'
             }`}
           >
@@ -241,7 +237,7 @@ const HomeLayout = () => {
         {/* Gallery Section */}
         <section className="mb-20">
           <h2
-            className={`text-3xl font-bold mb-8 text-center ${
+            className={`text-2xl lg:text-3xl font-bold mb-6 lg:mb-8 text-center ${
               isDark ? 'text-blue-300 shadow-md' : 'text-green-700 shadow-md'
             }`}
           >
@@ -295,7 +291,7 @@ const HomeLayout = () => {
         {/* Latest Updates Section */}
         <section className="mb-20">
           <h2
-            className={`text-3xl font-bold mb-8 text-center ${
+            className={`text-2xl lg:text-3xl font-bold mb-6 lg:mb-8 text-center ${
               isDark ? 'text-blue-300 shadow-md' : 'text-green-700 shadow-md'
             }`}
           >
@@ -353,7 +349,7 @@ const HomeLayout = () => {
         {/* Quote Section */}
         <section className="text-center">
           <motion.blockquote
-            className={`text-2xl italic ${
+            className={`text-lg lg:text-2xl italic ${
               isDark ? 'text-blue-200 shadow-md' : 'text-green-600 shadow-md'
             }`}
             initial={{ opacity: 0 }}
