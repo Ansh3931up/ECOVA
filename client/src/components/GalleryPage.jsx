@@ -331,7 +331,7 @@ const GalleryPage = () => {
 
         {/* Title and Delete Button */}
         <div className="text-center mt-4">
-          <h2 className="text-2xl font-semibold text-white drop-shadow-lg">
+          <h2 className="text-2xl font-semibold text-black dark:text-white drop-shadow-lg">
             {galleries[selectedIndex]?.title}
           </h2>
           {isLoggedIn && (
