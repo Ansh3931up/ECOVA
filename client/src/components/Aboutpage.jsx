@@ -37,10 +37,10 @@ const events = [
   },
   {
     title: 'NGO Visits: ',
-    details: `ECOVA partners with the Gurusidak Foundation to promote environmental awareness and support their projects, fostering eco-friendly practices.`,
+    details: `ECOVA to promote environmental awareness and support their projects, fostering eco-friendly practices.`,
   },
   {
-    title: 'NGO Visits: Chandigarh/Hoshiarpur/Anandpur Sahib',
+    title: 'NGO Visits: Outside ',
     details: `Visits to NGOs in Chandigarh, Hoshiarpur, and Anandpur Sahib to spread environmental awareness, promote sustainable living, and inspire eco-friendly habits.`,
   },
 ];
