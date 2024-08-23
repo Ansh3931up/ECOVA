@@ -153,13 +153,13 @@ const HomeLayout = () => {
       <main className="relative z-10 mx-auto px-4 py-8 lg:px-6 lg:py-12">
         {/* Hero Section */}
         <section
-          className={`flex flex-col-reverse lg:flex-row items-center justify-between lg:m-20 mb-20  p-4 lg:p-20`}
+          className={`flex flex-col-reverse md:flex-col lg:flex-row items-center justify-between lg:m-20 mb-20 p-4 lg:p-20`}
         >
-          <div className={`text-center lg:text-left lg:w-1/2 bg-opacity-30  ${
+          <div className={`text-center lg:text-left w-full lg:w-1/2 mb-10 md:mb-0 bg-opacity-30 ${
             isDark ? 'bg-[#182B60] lg:bg-transparent' : 'bg-[#CBE1FE] lg:bg-transparent'
           }`}>
             <motion.h1
-              className={`text-5xl lg:text-9xl font-bold mb-4 ${
+              className={`text-5xl md:text-6xl lg:text-7xl xl:text-9xl font-bold mb-4 ${
                 isDark
                   ? 'bg-gradient-to-r from-blue-300 via-purple-500 to-blue-300'
                   : 'bg-gradient-to-r from-green-700 via-teal-500 to-green-700'
@@ -171,7 +171,7 @@ const HomeLayout = () => {
               ECOVA
             </motion.h1>
             <motion.p
-              className={`text-xl lg:text-3xl mb-4 lg:mb-8 ${
+              className={`text-xl lg:text-2xl xl:text-3xl mb-4 lg:mb-8 ${
                 isDark ? 'text-blue-200 shadow-md' : 'text-green-600 shadow-md'
               }`}
               initial={{ opacity: 0, y: 50 }}
@@ -181,7 +181,7 @@ const HomeLayout = () => {
               One touch of nature makes the whole world kin.
             </motion.p>
             <motion.p
-              className={`text-sm lg:text-lg mb-4 lg:mb-8 ${
+              className={`text-sm lg:text-md xl:text-lg mb-4 lg:mb-8 ${
                 isDark ? 'text-blue-200 shadow-md' : 'text-green-600 shadow-md'
               }`}
               initial={{ opacity: 0, y: 50 }}
@@ -205,13 +205,15 @@ const HomeLayout = () => {
               Join Our Mission
             </motion.button>
           </div>
-          <Player
-            autoplay
-            loop
-            src="https://lottie.host/ffab5b5a-d38b-4c73-83d3-64989ff54891/tAa2gEblEa.json"
-            style={{ height: '400px', width: '400px' }}
-            className="lg:w-1/2 mb-10 lg:mb-0"
-          />
+          <div className="flex justify-center lg:w-1/2">
+            <Player
+              autoplay
+              loop
+              src="https://lottie.host/ffab5b5a-d38b-4c73-83d3-64989ff54891/tAa2gEblEa.json"
+              style={{ height: '300px', width: '300px' }}
+              className="mb-10 md:mb-0"
+            />
+          </div>
         </section>
 
         {/* Environmental Activities Section */}
