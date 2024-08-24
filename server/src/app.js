@@ -16,16 +16,16 @@ import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const app=express();   
-const allowedOrigin = 'https://ecova.vercel.app';
+// const allowedOrigin = 'https://ecova.vercel.app';
 app.set("trust proxy", true);
 
-const corsOptions = {
-  origin: allowedOrigin,
-  credentials: true, // This allows cookies and credentials to be sent in cross-origin requests
-  // optionsSuccessStatus: 200 // Some legacy browsers choke on 204
-};
+// const corsOptions = {
+//   origin: allowedOrigin,
+//   credentials: true, // This allows cookies and credentials to be sent in cross-origin requests
+//   // optionsSuccessStatus: 200 // Some legacy browsers choke on 204
+// };
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(morgan('dev'));
 
