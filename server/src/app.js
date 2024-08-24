@@ -25,7 +25,7 @@ app.set("trust proxy", true);
 //   // optionsSuccessStatus: 200 // Some legacy browsers choke on 204
 // };
 
-app.use(cors());
+app.use(cors("*"));
 
 app.use(morgan('dev'));
 
