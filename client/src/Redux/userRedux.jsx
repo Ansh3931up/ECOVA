@@ -7,7 +7,7 @@ const initialState = {
     data: localStorage.getItem('data') ? JSON.parse(localStorage.getItem('data')) : {},
     isLoading: false,
     error: null,
-};
+}
 
 // Login Thunk
 export const login = createAsyncThunk('auth/login', async (data, { rejectWithValue }) => {
