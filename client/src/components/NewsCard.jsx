@@ -7,7 +7,7 @@ const NewsCard = ({ title, date, description, isDark, onDelete }) => {
 
   const toggleReadMore = () => {
     setIsExpanded(!isExpanded);
-  };
+  }
 
   return (
     <div className={`p-6 rounded-lg shadow-md ${isDark ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'}`}>
