@@ -51,14 +51,14 @@ const AboutPage = () => {
 
   const teamMembers = [
     { name: 'Dr. Ina Thakur', title: 'Faculty Advisor', image:ina  },
-    { name: 'Manish Yadav', title: 'President', image: manish },
+    { name: 'Manish Yadav', title: 'President', image: manish, contributor: true },
     { name: 'Piyush Jangir', title: 'Vice President', image: piyush },
     { name: 'Bhanu Singh', title: 'Treasurer', image: Bhanu },
     { name: 'Devesh Soni', title: 'Social Media', image: Devesh },
     { name: 'Kislay Kumar', title: 'Secretary', image: kislay },
     { name: 'Lakshya Kumar', title: 'Volunteer Team', image: lakshya },
     { name: 'Hemang Malhotra', title: 'Photography Team', image: hemang },
-    { name: 'Ansh', title: 'PR Team Head', image: Ansh, contributor: true },
+    { name: 'Ansh', title: 'PR Team Head', image: Ansh },
     { name: 'Siddharth', title: 'Designing Team', image: siddarth },
     { name: 'Kaustubh Agarwal', title: 'Content Team', image: kaustubh },
     { name: 'Tanishq Singh', title: 'Joint secretary', image: tanishq },
