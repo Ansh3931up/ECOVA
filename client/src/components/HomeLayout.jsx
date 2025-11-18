@@ -37,27 +37,24 @@ const HomeLayout = () => {
   }, [dispatch]);
 
   const latestGalleries = galleries.slice(0, 6);
-  const latestUpdates = updates.slice(0, 3); 
+  const latestUpdates = updates.slice(0, 3);
 
   return (
     <div
-      className={`min-h-screen pt-32 font-poppins transition-colors duration-500 ${
-        isDark
+      className={`min-h-screen pt-24 font-poppins transition-colors duration-500 ${isDark
           ? 'bg-gradient-to-b from-gray-900 via-blue-900 to-gray-900'
           : 'bg-gradient-to-b from-blue-200 via-blue-100 to-blue-50'
-      } overflow-hidden`}
+        } overflow-hidden`}
     >
       {/* Animated Background */}
       <div className="fixed inset-0 z-0 overflow-hidden">
-        {/* Sun or Moon */}
         <motion.div
-          className={`absolute rounded-full ${
-            isDark ? 'bg-gray-300' : 'bg-yellow-400'
-          }`}
+          className={`absolute rounded-full ${isDark ? 'bg-gray-300' : 'bg-yellow-400'
+            }`}
           style={{
-            width: isDark ? 100 : 300,
-            height: isDark ? 100 : 300,
-            top: isDark ? '10%' : '-10%',
+            width: isDark ? 70 : 200,
+            height: isDark ? 70 : 200,
+            top: isDark ? '10%' : '-5%',
             left: '50%',
             transform: 'translateX(-50%)',
           }}
@@ -114,9 +111,8 @@ const HomeLayout = () => {
         {Array.from({ length: 5 }).map((_, i) => (
           <motion.div
             key={`cloud-${i}`}
-            className={`absolute ${
-              isDark ? 'bg-gray-500' : 'bg-white'
-            } rounded-full opacity-80`}
+            className={`absolute ${isDark ? 'bg-gray-500' : 'bg-white'
+              } rounded-full opacity-80`}
             style={{
               width: Math.random() * 200 + 100,
               height: Math.random() * 60 + 40,
@@ -150,20 +146,18 @@ const HomeLayout = () => {
       </motion.button>
 
       {/* Main Content */}
-      <main className="relative z-10 mx-auto px-4 py-8 lg:px-6 lg:py-12">
+      <main className="relative z-10 mx-auto px-4 py-6 lg:px-6 lg:py-10">
         {/* Hero Section */}
         <section
-          className={`flex flex-col-reverse md:flex-col lg:flex-row items-center justify-between lg:m-20 mb-20 p-4 lg:p-20`}
+          className={`flex flex-col-reverse md:flex-col lg:flex-row items-center justify-between lg:m-16 mb-16 p-4 lg:p-16`}
         >
-          <div className={`text-center lg:text-left w-full lg:w-1/2 mb-10 md:mb-0 bg-opacity-30 ${
-            isDark ? 'bg-[#182B60] lg:bg-transparent' : 'bg-[#CBE1FE] lg:bg-transparent'
-          }`}>
+          <div className={`text-center lg:text-left w-full lg:w-1/2 mb-10 md:mb-0 bg-opacity-30 ${isDark ? 'bg-[#182B60] lg:bg-transparent' : 'bg-[#CBE1FE] lg:bg-transparent'
+            }`}>
             <motion.h1
-              className={`text-5xl md:text-6xl lg:text-7xl xl:text-9xl font-bold mb-4 ${
-                isDark
+              className={`text-5xl md:text-6xl lg:text-7xl xl:text-9xl font-bold mb-4 ${isDark
                   ? 'bg-gradient-to-r from-blue-300 via-purple-500 to-blue-300'
                   : 'bg-gradient-to-r from-green-700 via-teal-500 to-green-700'
-              } text-transparent bg-clip-text shadow-lg`}
+                } text-transparent bg-clip-text`}
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1 }}
@@ -171,19 +165,17 @@ const HomeLayout = () => {
               ECOVA
             </motion.h1>
             <motion.p
-              className={`text-xl lg:text-2xl xl:text-3xl mb-4 lg:mb-8 ${
-                isDark ? 'text-blue-200 shadow-md' : 'text-green-600 shadow-md'
-              }`}
+              className={`text-xl lg:text-2xl xl:text-3xl mb-4 lg:mb-8 ${isDark ? 'text-blue-200' : 'text-green-600'
+                }`}
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.2 }}
             >
-              One touch of nature makes the whole world kin.
+              One touch of nature makes the whole world kind.
             </motion.p>
             <motion.p
-              className={`text-sm lg:text-md xl:text-lg mb-4 lg:mb-8 ${
-                isDark ? 'text-blue-200 shadow-md' : 'text-green-600 shadow-md'
-              }`}
+              className={`text-sm lg:text-md xl:text-lg mb-4 lg:mb-8 ${isDark ? 'text-blue-200' : 'text-green-600'
+                }`}
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.4 }}
@@ -193,11 +185,10 @@ const HomeLayout = () => {
               world.
             </motion.p>
             <motion.button
-              className={`${
-                isDark
+              className={`${isDark
                   ? 'bg-blue-500 hover:bg-blue-600 shadow-md'
                   : 'bg-green-500 hover:bg-green-600 shadow-md'
-              } text-white font-bold py-2 px-4 lg:py-3 lg:px-6 rounded-full transition duration-300`}
+                } text-white font-bold py-2 px-4 lg:py-3 lg:px-6 rounded-full transition duration-300`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => window.open('https://forms.gle/FGjqxeMd41fX6dHq6', '_blank')}
@@ -218,14 +209,12 @@ const HomeLayout = () => {
 
         {/* Environmental Activities Section */}
         <section
-          className={`mb-20 p-4 lg:p-8 bg-opacity-20 ${
-            isDark ? 'bg-[#182B60] lg:bg-transparent' : 'bg-[#CBE1FE] lg:bg-transparent'
-          }`}
+          className={`mb-20 p-4 lg:p-8 bg-opacity-20 ${isDark ? 'bg-[#182B60] lg:bg-transparent' : 'bg-[#CBE1FE] lg:bg-transparent'
+            }`}
         >
           <h2
-            className={`text-2xl lg:text-3xl font-bold mb-6 lg:mb-8 text-center ${
-              isDark ? 'text-blue-300 shadow-md' : 'text-green-700 shadow-md'
-            }`}
+            className={`text-2xl lg:text-3xl font-bold mb-6 lg:mb-8 text-center ${isDark ? 'text-blue-300 ' : 'text-green-700'
+              }`}
           >
             Our Environmental Activities
           </h2>
@@ -239,9 +228,8 @@ const HomeLayout = () => {
         {/* Gallery Section */}
         <section className="mb-20">
           <h2
-            className={`text-2xl lg:text-3xl font-bold mb-6 lg:mb-8 text-center ${
-              isDark ? 'text-blue-300 shadow-md' : 'text-green-700 shadow-md'
-            }`}
+            className={`text-2xl lg:text-3xl font-bold mb-6 lg:mb-8 text-center ${isDark ? 'text-blue-300' : 'text-green-700'
+              }`}
           >
             Our Gallery
           </h2>
@@ -264,9 +252,8 @@ const HomeLayout = () => {
               {latestGalleries?.slice()?.reverse()?.map((gallery, i) => (
                 <motion.div
                   key={gallery._id}
-                  className={`${
-                    isDark ? 'bg-gray-800' : 'bg-white'
-                  } p-4 rounded-lg shadow-lg overflow-hidden`}
+                  className={`${isDark ? 'bg-gray-800' : 'bg-white'
+                    } p-4 rounded-lg overflow-hidden`}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
@@ -278,9 +265,8 @@ const HomeLayout = () => {
                     className="w-full h-48 object-cover rounded-md"
                   />
                   <p
-                    className={`mt-2 text-center ${
-                      isDark ? 'text-blue-300' : 'text-green-700'
-                    }`}
+                    className={`mt-2 text-center ${isDark ? 'text-blue-300' : 'text-green-700'
+                      }`}
                   >
                     {gallery.title || `Eco Project ${i + 1}`}
                   </p>
@@ -293,9 +279,8 @@ const HomeLayout = () => {
         {/* Latest Updates Section */}
         <section className="mb-20">
           <h2
-            className={`text-2xl lg:text-3xl font-bold mb-6 lg:mb-8 text-center ${
-              isDark ? 'text-blue-300 shadow-md' : 'text-green-700 shadow-md'
-            }`}
+            className={`text-2xl lg:text-3xl font-bold mb-6 lg:mb-8 text-center ${isDark ? 'text-blue-300' : 'text-green-700'
+              }`}
           >
             Latest Updates
           </h2>
@@ -318,9 +303,8 @@ const HomeLayout = () => {
               {latestUpdates.map((update, i) => (
                 <motion.div
                   key={update._id}
-                  className={`${
-                    isDark ? 'bg-gray-800' : 'bg-white'
-                  } p-6 rounded-lg shadow-lg`}
+                  className={`${isDark ? 'bg-gray-800' : 'bg-white'
+                    } p-6 rounded-lg shadow-lg`}
                   initial={{ opacity: 0, x: -50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: i * 0.2 }}
@@ -332,9 +316,8 @@ const HomeLayout = () => {
                       className={isDark ? 'text-blue-400' : 'text-green-500'}
                     />
                     <h3
-                      className={`text-xl font-semibold ml-2 ${
-                        isDark ? 'text-blue-300' : 'text-green-700'
-                      }`}
+                      className={`text-xl font-semibold ml-2 ${isDark ? 'text-blue-300' : 'text-green-700'
+                        }`}
                     >
                       {update.title}
                     </h3>
@@ -351,9 +334,8 @@ const HomeLayout = () => {
         {/* Quote Section */}
         <section className="text-center">
           <motion.blockquote
-            className={`text-lg lg:text-2xl italic ${
-              isDark ? 'text-blue-200 shadow-md' : 'text-green-600 shadow-md'
-            }`}
+            className={`text-lg lg:text-2xl italic ${isDark ? 'text-blue-200' : 'text-green-600'
+              }`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
@@ -362,9 +344,8 @@ const HomeLayout = () => {
             one thing all of us share."
           </motion.blockquote>
           <motion.p
-            className={`mt-4 font-semibold ${
-              isDark ? 'text-blue-300 shadow-md' : 'text-green-700 shadow-md'
-            }`}
+            className={`mt-4 font-semibold ${isDark ? 'text-blue-300' : 'text-green-700'
+              }`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.5 }}

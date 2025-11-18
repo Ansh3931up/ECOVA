@@ -9,14 +9,14 @@ import { Provider } from 'react-redux';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 
 import { store } from './app/store';
+import AboutPage from './components/Aboutpage';
+import AdminSignInPage from './components/Signin';
 import ContactPage from './components/ContactPage';
+import GalleryPage from './components/GalleryPage';
 import HomeLayout from './components/HomeLayout';
 import Layout from './components/Layout';
+import NewsPage from './components/NewsPage';
 import { ThemeProvider } from './context/ThemeContext';
-import AboutPage from './components/Aboutpage';
-import GalleryPage from './components/GalleryPage';
-import NewsPage from './components/NewsPage'
-import AdminSignInPage from './components/Signin';
 
 // import { ThemeProvider } from './components/ThemeContext';
 // import UploadPhoto from './components/UploadPhoto';
@@ -32,9 +32,9 @@ const router = createBrowserRouter(
       <Route path="news" element={<NewsPage />} />
       <Route path="signin" element={<AdminSignInPage/>} />
 
-      
-      
-    
+
+
+
       {/* <Route path="*" element={<Notfoundpage />} /> */}
     </Route>
   )
@@ -48,7 +48,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Toaster />
           <RouterProvider router={router} />
         </ThemeProvider>
-          
+
 
     </React.StrictMode>
   </Provider>
