@@ -1,17 +1,19 @@
-import mongoose from 'mongoose'
-// import { DB_NAME } from '../src/constant.js'
-const connectDB=async()=>{
-    try {
-        // console.log(`mongodb+srv://${process.env.MNAME}:${process.env.MPASSWORD}@cluster0.o3kp0fp.mongodb.net/videotub
-        // mongodb+srv://ECOVA:ecova1234@cluster0.7vrax.mongodb.net/
-        const Connection=await mongoose.connect(`mongodb+srv://${process.env.MNAME}:${process.env.MPASSWORD}@cluster0.7vrax.mongodb.net/`)
-        console.log(`your database is connected to the ${Connection.connection.host}`)
 
-    } catch (error) {
-        console.log(error);
-        process.exit(1)
-        
-    }
-}
-// mongodb+srv://ANSH_39:ansh3931@cluster0.o3kp0fp.mongodb.net//lms
+import dotenv from "dotenv";    
+dotenv.config();
+import mongoose from "mongoose";
+
+const MONGO_URI =
+  process.env.MONGO_URI || "mongodb://127.0.0.1:27017/ecova";
+
+const connectDB = async () => {
+  try {
+    const connection = await mongoose.connect(MONGO_URI);
+    console.log(`MongoDB connected: ${connection.connection.host}`);
+  } catch (error) {
+    console.error("MongoDB connection failed:", error.message);
+    process.exit(1);
+  }
+};
+
 export default connectDB;
