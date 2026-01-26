@@ -66,14 +66,14 @@ ECOVA/
      ```bash
      cd client
      npm install
-     npm start
+     npm run dev
      ```
    * For backend:
 
      ```bash
      cd server
      npm install
-     npm run dev
+     npm start
      ```
 
 3. Setup environment variables in `server/.env`:
